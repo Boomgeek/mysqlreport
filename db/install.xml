@@ -76,7 +76,7 @@
   
     <TABLE NAME="mysqlreport_unit" COMMENT="mysqlreport_unit is keep unit information">
       <FIELDS>
-        <FIELD NAME="uid" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="unit" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="max_practice_while" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="max_practice_after" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
@@ -91,16 +91,47 @@
 
     <TABLE NAME="mysqlreport_log" COMMENT="mysqlreport_log is keep log information">
       <FIELDS>
-        <FIELD NAME="uid" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-        <FIELD NAME="unit" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="max_practice_while" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="max_practice_after" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="lid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="code" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="timestamp" TYPE="datetime" NOTNULL="true" UNSIGNED="true" DEFAULT="CURRENT_TIMESTAMP"/>
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="uid"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="lid"/>
       </KEYS>
       <INDEXES>
-        <INDEX NAME="uid" UNIQUE="false" FIELDS="uid"/>
+        <INDEX NAME="lid" UNIQUE="false" FIELDS="lid"/>
+      </INDEXES>
+    </TABLE>
+    
+    <TABLE NAME="mysqlreport_unit_count" COMMENT="student_timestamp is keep timestamp of student">
+      <FIELDS>
+        <FIELD NAME="ucid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="count" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="ucid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="ucid" UNIQUE="false" FIELDS="ucid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="mysqlreport_student_progress" COMMENT="student_timestamp is keep timestamp of student">
+      <FIELDS>
+        <FIELD NAME="spid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="point" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="spid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="spid" UNIQUE="false" FIELDS="spid"/>
       </INDEXES>
     </TABLE>
 
