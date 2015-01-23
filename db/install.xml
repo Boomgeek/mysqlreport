@@ -4,13 +4,13 @@
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="mysqlreport_practice_answer" COMMENT="mysqlreport_practice_answer is keep answer">
+    <TABLE NAME="mysqlreport" COMMENT="mysqlreport table is default table.">
       <FIELDS>
-        <FIELD NAME="AID" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-        <FIELD NAME="PID" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
-        <FIELD NAME="SID" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" />
-        <FIELD NAME="answer" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="answer_count" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Course newmodule activity belongs to"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="General introduction of the newmodule activity"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="grade" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="100" SEQUENCE="false" COMMENT="The maximum grade. Can be negative to indicate the use of a scale."/>
@@ -22,5 +22,87 @@
         <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
       </INDEXES>
     </TABLE>
+
+    <TABLE NAME="mysqlreport_practice_answer" COMMENT="mysqlreport_practice_answer is keep answer">
+      <FIELDS>
+        <FIELD NAME="aid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="answer" TYPE="text" NOTNULL="true"/>
+        <FIELD NAME="answer_count" TYPE="char" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
+        <FIELD NAME="cheat" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
+        <FIELD NAME="result" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
+        <FIELD NAME="comment" TYPE="text" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="aid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="sid" UNIQUE="false" FIELDS="sid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="mysqlreport_student" COMMENT="mysqlreport_student is keep student information">
+      <FIELDS>
+        <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="fname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="lname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="number" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="sid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="sid" UNIQUE="false" FIELDS="sid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="mysqlreport_practice" COMMENT="mysqlreport_practice is keep practice information">
+      <FIELDS>
+        <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="article" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="9" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="difficulty_index" TYPE="char" LENGTH="5" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="pid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="pid" UNIQUE="false" FIELDS="pid"/>
+      </INDEXES>
+    </TABLE>
+  
+    <TABLE NAME="mysqlreport_unit" COMMENT="mysqlreport_unit is keep unit information">
+      <FIELDS>
+        <FIELD NAME="uid" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="unit" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="max_practice_while" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="max_practice_after" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="uid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="uid" UNIQUE="false" FIELDS="uid"/>
+      </INDEXES>
+    </TABLE>
+
+    <TABLE NAME="mysqlreport_log" COMMENT="mysqlreport_log is keep log information">
+      <FIELDS>
+        <FIELD NAME="uid" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="unit" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="max_practice_while" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="max_practice_after" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="uid"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="uid" UNIQUE="false" FIELDS="uid"/>
+      </INDEXES>
+    </TABLE>
+
   </TABLES>
 </XMLDB>
