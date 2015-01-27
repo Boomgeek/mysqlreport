@@ -29,7 +29,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
-echo "<h1>Hello</h1>";
+require_once(dirname(__FILE__).'/source/dashboard.php');
 /*
 $id = required_param('id', PARAM_INT); // Course.
 

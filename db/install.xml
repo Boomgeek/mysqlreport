@@ -23,7 +23,7 @@
       </INDEXES>
     </TABLE>
 
-    <TABLE NAME="mysqlreport_practice_answer" COMMENT="mysqlreport_practice_answer is keep answer">
+    <TABLE NAME="mysql_answer" COMMENT="mysql_answer is keep answer">
       <FIELDS>
         <FIELD NAME="aid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
@@ -43,7 +43,7 @@
       </INDEXES>
     </TABLE>
 
-    <TABLE NAME="mysqlreport_student" COMMENT="mysqlreport_student is keep student information">
+    <TABLE NAME="mysql_student" COMMENT="mysql_student is keep student information">
       <FIELDS>
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="fname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
@@ -58,7 +58,7 @@
       </INDEXES>
     </TABLE>
 
-    <TABLE NAME="mysqlreport_practice" COMMENT="mysqlreport_practice is keep practice information">
+    <TABLE NAME="mysql_practice" COMMENT="mysql_practice is keep practice information">
       <FIELDS>
         <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="article" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
@@ -74,7 +74,7 @@
       </INDEXES>
     </TABLE>
   
-    <TABLE NAME="mysqlreport_unit" COMMENT="mysqlreport_unit is keep unit information">
+    <TABLE NAME="mysql_unit" COMMENT="mysql_unit is keep unit information">
       <FIELDS>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="unit" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
@@ -89,7 +89,7 @@
       </INDEXES>
     </TABLE>
 
-    <TABLE NAME="mysqlreport_log" COMMENT="mysqlreport_log is keep log information">
+    <TABLE NAME="mysql_log" COMMENT="mysqlreport_log is keep log information">
       <FIELDS>
         <FIELD NAME="lid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
@@ -105,11 +105,12 @@
       </INDEXES>
     </TABLE>
     
-    <TABLE NAME="mysqlreport_unit_count" COMMENT="student_timestamp is keep timestamp of student">
+    <TABLE NAME="mysql_ucount" COMMENT="student_timestamp is keep timestamp of student">
       <FIELDS>
         <FIELD NAME="ucid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="uname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="count" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
       </FIELDS>
       <KEYS>
@@ -120,7 +121,7 @@
       </INDEXES>
     </TABLE>
 
-    <TABLE NAME="mysqlreport_student_progress" COMMENT="student_timestamp is keep timestamp of student">
+    <TABLE NAME="mysql_spoint" COMMENT="student_timestamp is keep timestamp of student">
       <FIELDS>
         <FIELD NAME="spid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
