@@ -1,0 +1,82 @@
+<?php 
+//check login
+if(empty($USER->username)){
+	header( "refresh: 0; url=../../login/index.php" );		//redirect to http://localhost/moodle/login/index.php
+	exit(0);
+}
+
+$mode = $_REQUEST["mode"];
+if(empty($mode)){
+	echo "Error: Mode was empty";
+	exit(0);
+}
+
+if($mode == "log")
+{
+	$code = $_REQUEST["code"];
+	if(empty($code))
+	{
+		echo "Error: code was empty";
+		exit(0);
+	}	
+
+	$unit = $_REQUEST["unit"];
+	if(empty($unit))
+	{
+		echo "Error: unit was empty";
+		exit(0);
+	}
+	else if(!is_numeric($unit))
+	{
+		echo "Error: unit is wrong. Unit only is integer.";
+		exit(0);
+	}	
+
+	$article = $_REQUEST["article"];
+	if(empty($article))
+	{
+		echo "Error: article was empty";
+		exit(0);
+	}
+	else if(!is_numeric($article))
+	{
+		echo "Error: article is wrong. Article only is integer.";
+		exit(0);
+	}		
+
+	$type = $_REQUEST["type"];
+	if(empty($type))
+	{
+		echo "Error: type was empty";
+		exit(0);
+	}
+	else if(($type != "while_exp") && ($type != "after_exp"))
+	{
+		echo "Error: type is wrong. Only type is while_exp or after_exp";
+		exit(0);
+	}
+
+	$sid = $USER->username;
+
+	//echo $sid.",".$code.",".$unit.",".$article.",".$type;
+	include("./source/php/model_connection.php");				//run on service.php outsite source folder
+	include("./source/php/model_service_log.php");
+
+	$cdb = new connectDB('localhost','root','1234','moodle');
+	$cdb->connect();
+	$con = $cdb->con;											//get con for send to logService class
+	//print_r($con);
+	$ls = new logService($con,$sid,$code,$unit,$article,$type);
+	$ls->pushLog();
+}
+
+if($mode == "answer")
+{
+	echo "Hello answer";
+}
+
+
+//start function zone
+
+//end function zone
+?>
