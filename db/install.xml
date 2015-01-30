@@ -33,7 +33,7 @@
         <FIELD NAME="cheat" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="status" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="result" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
-        <FIELD NAME="comment" TYPE="text" NOTNULL="true"/>
+        <FIELD NAME="comment" TYPE="text" DEFAULT="NULL"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="aid"/>
@@ -62,7 +62,7 @@
       <FIELDS>
         <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="article" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="type" TYPE="char" LENGTH="9" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="type" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="difficulty_index" TYPE="char" LENGTH="5" NOTNULL="true" DEFAULT="0"/>
       </FIELDS>
