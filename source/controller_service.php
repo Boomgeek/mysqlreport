@@ -60,8 +60,12 @@ if($mode == "log")
 	//echo $sid.",".$code.",".$unit.",".$article.",".$type;
 	include("./source/php/model_connection.php");				//run on service.php outsite source folder
 	include("./source/php/model_service_log.php");
+	include("./source/php/model_getConnection.php");
 
-	$cdb = new connectDB('localhost','root','1234','moodle');
+	$gjc = new getJsonConnection();
+	$c = $gjc->getConnection();
+	//print_r($c);
+	$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
 	$cdb->connect();
 	$con = $cdb->con;											//get con for send to logService class
 	//print_r($con);
@@ -119,8 +123,12 @@ if($mode == "answer")
 	//echo $sid.",".$code.",".$unit.",".$article.",".$type;
 	include("./source/php/model_connection.php");				//run on service.php outsite source folder
 	include("./source/php/model_service_answer.php");
+	include("./source/php/model_getConnection.php");
 
-	$cdb = new connectDB('localhost','root','1234','moodle');
+	$gjc = new getJsonConnection();
+	$c = $gjc->getConnection();
+	//print_r($c);
+	$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
 	$cdb->connect();
 	$con = $cdb->con;											//get con for send to logService class
 	//print_r($con);
