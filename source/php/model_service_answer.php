@@ -21,6 +21,8 @@
 			$answer = $this->answer;
 			$insert = "insert into mdl_mysql_answer (sid,pid,answer) values ('".$sid."',".$pid.",'".$answer."')";
 
+			$this->checkAnswered();			//check answer had has already;
+
 			if($result = mysqli_query($this->con,$insert))
 			{
 				echo "insert successful.";
@@ -69,7 +71,25 @@
 			}
 		}
 
-
+		function checkAnswered()
+		{
+			$pid = $this->getPID();
+			$sid = $this->sid;
+			$select = "select * from mdl_mysql_answer where pid=".$pid." and sid='".$sid."'";
+			if($result = mysqli_query($this->con,$select))
+			{
+				$rowcount=mysqli_num_rows($result);
+				if($rowcount != 0){
+					echo "Error: You have answered already.";
+					exit(0);
+				}
+			}
+			else
+			{
+				printf("Error: %s", mysqli_error($this->con));
+				exit();
+			}
+		}
 	}
 
 ?>
