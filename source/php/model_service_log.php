@@ -36,7 +36,7 @@
 		{
 			$uid = $this->getUID();
 			$select = "select pid from mdl_mysql_practice where article=".$this->article." and type=".$this->type." and uid=".$uid;
-			echo $select."<br>";
+			//echo $select."<br>";
 			if($result = mysqli_query($this->con,$select))
 			{
 				while($data = mysqli_fetch_array($result,MYSQLI_NUM)) 
