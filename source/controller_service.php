@@ -60,7 +60,7 @@ if($mode == "log")
 	//echo $sid.",".$code.",".$unit.",".$article.",".$type;
 	include("./source/php/model_connection.php");				//run on service.php outsite source folder
 	include("./source/php/model_service_log.php");
-	include("./source/php/model_getConnection.php");
+	include("./source/php/model_getJsonConnection.php");
 
 	$gjc = new getJsonConnection();
 	$c = $gjc->getConnection();
@@ -123,7 +123,7 @@ if($mode == "answer")
 	//echo $sid.",".$code.",".$unit.",".$article.",".$type;
 	include("./source/php/model_connection.php");				//run on service.php outsite source folder
 	include("./source/php/model_service_answer.php");
-	include("./source/php/model_getConnection.php");
+	include("./source/php/model_getJsonConnection.php");
 
 	$gjc = new getJsonConnection();
 	$c = $gjc->getConnection();
