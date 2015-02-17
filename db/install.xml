@@ -77,6 +77,7 @@
     <TABLE NAME="mysql_unit" COMMENT="mysql_unit is keep unit information">
       <FIELDS>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
+        <FIELD NAME="uname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="unit" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="max_practice_while" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="max_practice_after" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
@@ -110,7 +111,6 @@
         <FIELD NAME="ucid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="uname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="count" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
       </FIELDS>
       <KEYS>
