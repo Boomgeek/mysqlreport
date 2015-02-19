@@ -8,7 +8,7 @@
 	<!--#page-header-->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Setting Experiment</h1>	
+			<h1 class="page-header"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Setting Experiment</h1>	
 		</div>
 	</div>
 	<!--#page-header-->
@@ -16,7 +16,7 @@
 		<div class="col-lg-12 content">
 			<div class="form-group">
 				<label>Quantity Unit</label>
-				<input type="number" class="form-control" name="quantity" value="1" min="1">
+				<input type="number" class="form-control" id="unitQuantity" value="1" min="1">
 				<p class="help-block">Please fill it</p>
 			</div>
 			<div class="table-responsive">
@@ -29,25 +29,21 @@
 								<th>Max after practice</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="unitForm">
 							<tr>
-								<td>1</td>
-								<td><input type="text" class="form-control" placeholder="Enter Unit Name"></td>
-								<td><input type="number" class="form-control" name="max_practice_while" value="1" min="1"></td>
-								<td><input type="number" class="form-control" name="max_practice_affer" value="1" min="1"></td>
+								<td id="unit1">1</td>
+								<td><input type="text" class="form-control"  id="uname1" placeholder="Enter Unit Name"></td>
+								<td><input type="number" class="form-control" id="while1" value="0" min="0"></td>
+								<td><input type="number" class="form-control" id="after1" value="0" min="0"></td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td><input type="text" class="form-control" placeholder="Enter Unit Name"></td>
-								<td><input type="number" class="form-control" name="max_practice_while" value="1" min="1"></td>
-								<td><input type="number" class="form-control" name="max_practice_affer" value="1" min="1"></td>
-							</tr>
+							
 						</tbody>
 				</table>
 			</div>
-			<button type="button" class="btn btn-primary btn-lg center-block">Create Unit</button>
+			<button type="button" id="saveSetting" class="btn btn-primary btn-lg center-block">Save</button>
 		</div>
 	</div>
 
 </body>
+<script src="./source/js/content_setting.js"></script>
 </html>
