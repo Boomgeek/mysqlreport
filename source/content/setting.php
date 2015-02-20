@@ -17,7 +17,6 @@
 			<div class="form-group">
 				<label>Quantity Unit</label>
 				<input type="number" class="form-control" id="unitQuantity" value="1" min="1">
-				<p class="help-block">Please fill it</p>
 			</div>
 			<div class="table-responsive">
 				<table class="table table-condensed">
