@@ -1,9 +1,9 @@
 <?php 
 	class getJsonConnection
 	{
-		function getConnection()
+		function getConnection($source)
 		{
-			$str = file_get_contents('./source/connection.json');
+			$str = file_get_contents($source);
 			$json = json_decode($str, true);
 			$host = $json['connection']['host'];
 			$user = $json['connection']['user'];

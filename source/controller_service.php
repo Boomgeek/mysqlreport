@@ -63,7 +63,7 @@ if($mode == "log")
 	include("./source/php/model_getJsonConnection.php");
 
 	$gjc = new getJsonConnection();
-	$c = $gjc->getConnection();
+	$c = $gjc->getConnection('./source/connection.json');
 	//print_r($c);
 	$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
 	$cdb->connect();
@@ -126,7 +126,7 @@ if($mode == "answer")
 	include("./source/php/model_getJsonConnection.php");
 
 	$gjc = new getJsonConnection();
-	$c = $gjc->getConnection();
+	$c = $gjc->getConnection('./source/connection.json');
 	//print_r($c);
 	$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
 	$cdb->connect();
