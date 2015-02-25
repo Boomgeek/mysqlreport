@@ -25,7 +25,7 @@
 
 			if($result = mysqli_query($this->con,$insert))
 			{
-				echo "insert successful.";
+				echo "Success: Send answer successful.";
 			}
 			else
 			{
