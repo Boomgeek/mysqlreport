@@ -17,7 +17,7 @@ $(document).ready(function() {
             type: "POST",
             data: "unit=" + unit + "&uname=" + uname + "&max_practice_while=" + max_practice_while + "&max_practice_after=" + max_practice_after,
             success: function(result) {
-                $('#content').html(result);
+                callContent("checking.php");        //this function from dashboard.js
             }
         });
     }
