@@ -14,7 +14,7 @@
 	<!--#page-header-->
 	<div class="row">
 		<div class="col-lg-12 content">
-			<div class="form-group">
+			<div class="form-inline">
 				<label>Quantity Unit</label>
 				<input type="number" class="form-control" id="unitQuantity" value="1" min="1">
 			</div>
