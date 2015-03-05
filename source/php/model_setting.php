@@ -11,12 +11,12 @@ if(empty($uname)){
 	exit(0);
 }
 $max_practice_while = $_REQUEST["max_practice_while"];
-if(empty($max_practice_while)){
+if($max_practice_while < 0){
 	echo "Error: max_practice_while was empty";
 	exit(0);
 }
 $max_practice_after = $_REQUEST["max_practice_after"];
-if(empty($max_practice_after)){
+if($max_practice_after < 0){
 	echo "Error: max_practice_after was empty";
 	exit(0);
 }
