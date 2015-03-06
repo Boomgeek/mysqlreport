@@ -1,4 +1,5 @@
 <?php 
+//start include connecttion file
 include("../php/model_connection.php");
 include("../php/model_getJsonConnection.php");
 
@@ -9,6 +10,7 @@ $c = $gjc->getConnection('../connection.json');
 $cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
 $cdb->connect();
 $con = $cdb->con;
+//end include connecttion file
 
 $select = "select * from mdl_mysql_unit";
 if($result = mysqli_query($con,$select))
