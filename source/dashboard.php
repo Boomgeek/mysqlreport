@@ -16,7 +16,7 @@ if(empty($USER->username)){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Progressive Report</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="./source/css/bootstrap.min.css" rel="stylesheet">
@@ -160,7 +160,7 @@ if(empty($USER->username)){
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                 	<li class="active">
-		            	<a href="#"><i class="fa fa-fw fa-edit"></i> Assignment</a>
+		            	<a href="javascript:void(0);" id="asssignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment</a>
 		            </li>
                     <li class="">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-desktop"></i> Progressive <i class="fa fa-fw fa-caret-down"></i></a>
