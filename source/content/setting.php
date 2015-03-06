@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Setting</title>
-</head>
 <body>
 	<!--#page-header-->
 	<div class="row">
@@ -45,4 +39,3 @@
 
 </body>
 <script src="./source/js/content_setting.js"></script>
-</html>
