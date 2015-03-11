@@ -58,16 +58,10 @@ if($mode == "log")
 	$sid = $USER->username;
 
 	//echo $sid.",".$code.",".$unit.",".$article.",".$type;
-	include("./source/php/model_connection.php");				//run on service.php outsite source folder
+	require("./source/php/connection.php");				//run on service.php outsite source folder
 	include("./source/php/model_service_log.php");
-	include("./source/php/model_getJsonConnection.php");
 
-	$gjc = new getJsonConnection();
-	$c = $gjc->getConnection('./source/connection.json');
-	//print_r($c);
-	$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
-	$cdb->connect();
-	$con = $cdb->con;											//get con for send to logService class
+	$con = connection();			//connection() from connection.php
 	//print_r($con);
 	$ls = new logService($con,$sid,$code,$unit,$article,$type);
 	$ls->pushLog();
@@ -121,16 +115,10 @@ if($mode == "answer")
 	$sid = $USER->username;
 
 	//echo $sid.",".$code.",".$unit.",".$article.",".$type;
-	include("./source/php/model_connection.php");				//run on service.php outsite source folder
+	include("./source/php/connection.php");				//run on service.php outsite source folder
 	include("./source/php/model_service_answer.php");
-	include("./source/php/model_getJsonConnection.php");
 
-	$gjc = new getJsonConnection();
-	$c = $gjc->getConnection('./source/connection.json');
-	//print_r($c);
-	$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
-	$cdb->connect();
-	$con = $cdb->con;											//get con for send to logService class
+	$con = connection();			//connection() from connection.php
 	//print_r($con);
 	$as = new answerService($con,$sid,$answer,$unit,$article,$type);
 	$as->pushAnswer();
