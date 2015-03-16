@@ -32,7 +32,7 @@
         <FIELD NAME="answer_count" TYPE="char" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="cheat" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="status" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
-        <FIELD NAME="result" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
+        <FIELD NAME="point" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="comment" TYPE="text" DEFAULT="NULL"/>
       </FIELDS>
       <KEYS>
