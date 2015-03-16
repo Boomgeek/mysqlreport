@@ -150,7 +150,7 @@ function getAssignment($unit,$type,$article)
 	$con = connection();
 	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
 	$pid = "select pid from mdl_mysql_practice where uid=(".$uid.") AND type=".$type." AND article=".$article;
-	$select = "select sid,answer from mdl_mysql_answer where pid = (".$pid.") ORDER BY sid ASC";
+	$select = "select sid,answer from mdl_mysql_answer where pid = (".$pid.") AND status = 0 ORDER BY sid ASC";
 
 	if($result = mysqli_query($con,$select))
 	{
