@@ -150,8 +150,8 @@ function getAssignment($unit,$type,$article)
 	$con = connection();
 	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
 	$pid = "select pid from mdl_mysql_practice where uid=(".$uid.") AND type=".$type." AND article=".$article;
-	$select = "select sid,answer from mdl_mysql_answer where pid = (".$pid.") AND status = 0 ORDER BY sid ASC";
-
+	$select = "select aid,sid,answer from mdl_mysql_answer where pid = (".$pid.") AND status = 0 ORDER BY sid ASC";
+	$maxPoint = 1;
 	if($result = mysqli_query($con,$select))
 	{
 		if($type == 1){
@@ -159,30 +159,43 @@ function getAssignment($unit,$type,$article)
 		}else if($type == 2){
 			$type = 'Post Experiments';
 		}
+		$question = "select question from mdl_mysql_practice where pid=(".$pid.")";		//ดึงคำถามมาแสดง
+		if($resultQuestion = mysqli_query($con,$question)){
+			while($question = mysqli_fetch_array($resultQuestion,MYSQLI_NUM)){
+				echo "<div class='panel panel-default'><div class='panel-heading'>";
+				echo "<b>คำถาม</b> ".$question[0];
+				echo "</div><div class='panel-body'>";
+				echo "<div class='table-responsive'><table class='table'>";
+				echo "<thead><tr>";
+				echo "<th>#</th>";
+				echo "<th>SID</th>";
+				echo "<th>Name</th>";
+				echo "<th>Answer</th>";
+				echo "<th>Status</th>";
+				echo "<th>Point</th>";
+				echo "<th>Commment</th>";
+				echo "</tr></thead>";
+				echo "<tbody>";
+			}
+		}else{
+			printf("Error: %s", mysqli_error($this->con));
+			exit();
+		}
 
-		echo "<div class='panel panel-default'><div class='panel-heading'>";
-		echo "<b>คำถาม</b> จงเขียนคำสั่งแสดงฐานข้อมูลทั้งหมด";
-		echo "</div><div class='panel-body'>";
-		echo "<div class='table-responsive'><table class='table'>";
-		echo "<thead><tr>";
-		echo "<th>#SID</th>";
-		echo "<th>Name</th>";
-		echo "<th>Answer</th>";
-		echo "<th>Status</th>";
-		echo "<th>Point</th>";
-		echo "<th>Commment</th>";
-		echo "</tr></thead>";
-		echo "<tbody>";
+		$num=1;
 		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
 		{
 			echo "<tr>";
-			echo "<td>".$data[0]."</td>";
+			echo "<td>".$num."</td>";
+			echo "<td id='aid_".$num."' hidden>".$data[0]."</td>";
+			echo "<td>".$data[1]."</td>";
 			echo "<td width='150'>Mr. Boom</td>";
-			echo "<td width='180'>".$data[1]."</td>";
-			echo "<td><label><input type='radio' name='status_".$data[0]."' value='1' checked>Correct</label><br> <label><input type='radio' name='status_".$data[0]."' value='2'>Wrong</label></td>";
-			echo "<td><input type='number' class='form-control' id='point_".$data[0]."' value='0' min='0' step='0.1'><b>/1</b>";
-			echo "<td><textarea class='form-control' id='comment_".$data[0]."' rows='2' cols='40'></textarea></td>";
+			echo "<td width='180'>".$data[2]."</td>";
+			echo "<td><label><input type='radio' name='status_".$num."' value='1' checked>Correct</label><br> <label><input type='radio' name='status_".$num."' value='2'>Wrong</label></td>";
+			echo "<td><input type='number' id='point_".$num."' value='0' min='0' step='0.1'><b> / ".$maxPoint."</b>";
+			echo "<td><textarea class='form-control' id='comment_".$num."' rows='2' cols='40'></textarea></td>";
 			echo "</tr>";
+			$num++;
 		}
 		echo "</tbody>";
   		echo "</table></div></div></div>";
