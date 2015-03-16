@@ -46,6 +46,7 @@ function callDropdown(data,res,callback) {
 }
 
 function callAssignment(){
+    //alert("mode=assignment&unit="+$('#unit-Filter').val()+"&type="+$('#type-Filter').val()+"&article="+$('#article-Filter').val());
         $.ajax({
             url: "./source/php/model_assignment.php",
             type: "POST",
