@@ -10,20 +10,20 @@ if(empty($uname)){
 	echo "Error: uname was empty";
 	exit(0);
 }
-$max_practice_while = $_REQUEST["max_practice_while"];
-if($max_practice_while < 0){
-	echo "Error: max_practice_while was empty";
+$max_in_experiments = $_REQUEST["max_in_experiments"];
+if($max_in_experiments < 0){
+	echo "Error: max_in_experiments was empty";
 	exit(0);
 }
-$max_practice_after = $_REQUEST["max_practice_after"];
-if($max_practice_after < 0){
-	echo "Error: max_practice_after was empty";
+$max_post_experiments = $_REQUEST["max_post_experiments"];
+if($max_post_experiments < 0){
+	echo "Error: max_post_experiments was empty";
 	exit(0);
 }
 
-insertUnit($unit,$uname,$max_practice_while,$max_practice_after);
+insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
 
-function insertUnit($unit,$uname,$max_practice_while,$max_practice_after)
+function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 {
 	include("./model_connection.php");
 	include("./model_getJsonConnection.php");
@@ -36,8 +36,8 @@ function insertUnit($unit,$uname,$max_practice_while,$max_practice_after)
 	$cdb->connect();
 	$con = $cdb->con;
 	//insert query
-	$insert = "insert into mdl_mysql_unit (unit, uname, max_practice_while, max_practice_after) ";
-	$insert .= "values(".$unit.",'".$uname."',".$max_practice_while.",".$max_practice_after.")";
+	$insert = "insert into mdl_mysql_unit (unit, uname, max_in_experiments, max_post_experiments) ";
+	$insert .= "values(".$unit.",'".$uname."',".$max_in_experiments.",".$max_post_experiments.")";
 	
 	if($result = mysqli_query($con,$insert))
 	{
@@ -59,10 +59,10 @@ function insertPractice($unit,$con)
 	{
 		$row=mysqli_fetch_array($result);
 		$uid = $row['uid'];
-		$max_practice_while = $row['max_practice_while'];
-		$max_practice_after = $row['max_practice_after'];
+		$max_in_experiments = $row['max_in_experiments'];
+		$max_post_experiments = $row['max_post_experiments'];
 
-		for($i=1;$i<=$max_practice_while;$i++)
+		for($i=1;$i<=$max_in_experiments;$i++)
 		{
 			$article = $i;
 			$type = 1;
@@ -71,7 +71,7 @@ function insertPractice($unit,$con)
 			$result = mysqli_query($con,$insert);
 		}
 
-		for($i=1;$i<=$max_practice_after;$i++)
+		for($i=1;$i<=$max_post_experiments;$i++)
 		{
 			$article = $i;
 			$type = 2;

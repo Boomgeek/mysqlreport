@@ -18,16 +18,16 @@
 							<tr>
 								<th>#</th>
 								<th>Unit Name</th>
-								<th>Max while practice</th>
-								<th>Max after practice</th>
+								<th>Max in experiments</th>
+								<th>Max post experiments</th>
 							</tr>
 						</thead>
 						<tbody id="unitForm">
 							<tr>
 								<td id="unit1">1</td>
 								<td><input type="text" class="form-control"  id="uname1" placeholder="Enter Unit Name"></td>
-								<td><input type="number" class="form-control" id="while1" value="0" min="0"></td>
-								<td><input type="number" class="form-control" id="after1" value="0" min="0"></td>
+								<td><input type="number" class="form-control" id="max_in_experiments1" value="0" min="0"></td>
+								<td><input type="number" class="form-control" id="max_post_experiments1" value="0" min="0"></td>
 							</tr>
 							
 						</tbody>

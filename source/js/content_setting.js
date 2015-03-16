@@ -11,11 +11,11 @@ $(document).ready(function() {
 
 
     //start function zone
-    function callInsert(unit, uname, max_practice_while, max_practice_after) {
+    function callInsert(unit, uname, max_in_experiments, max_post_experiments) {
         $.ajax({
             url: "./source/php/model_setting.php",
             type: "POST",
-            data: "unit=" + unit + "&uname=" + uname + "&max_practice_while=" + max_practice_while + "&max_practice_after=" + max_practice_after,
+            data: "unit=" + unit + "&uname=" + uname + "&max_in_experiments=" + max_in_experiments + "&max_post_experiments=" + max_post_experiments,
             success: function(result) {
                 callContent("checking.php");        //this function from dashboard.js
             }
@@ -29,10 +29,10 @@ $(document).ready(function() {
         for (i = 1; i <= unitFormSize; i++) { //get information with DOM
             var unit = $('#unit' + i).text();
             var uname = $('#uname' + i).val();
-            var max_practice_while = $('#while' + i).val();
-            var max_practice_after = $('#after' + i).val();
+            var max_in_experiments = $('#max_in_experiments' + i).val();
+            var max_post_experiments = $('#max_post_experiments' + i).val();
 
-            callInsert(unit, uname, max_practice_while, max_practice_after);
+            callInsert(unit, uname, max_in_experiments, max_post_experiments);
         }
     }
 
@@ -48,8 +48,8 @@ $(document).ready(function() {
                     data = "<tr>";
                     data += "<td id='unit" + ($('#unitForm').children().size() + 1) + "'>" + ($('#unitForm').children().size() + 1) + "</td>";
                     data += "<td><input type='text' class='form-control' id='uname" + ($('#unitForm').children().size() + 1) + "' placeholder='Enter Unit Name'></td>";
-                    data += "<td><input type='number' class='form-control' id='while" + ($('#unitForm').children().size() + 1) + "' value='0' min='0'></td>";
-                    data += "<td><input type='number' class='form-control' id='after" + ($('#unitForm').children().size() + 1) + "' value='0' min='0'></td>";
+                    data += "<td><input type='number' class='form-control' id='max_in_experiments" + ($('#unitForm').children().size() + 1) + "' value='0' min='0'></td>";
+                    data += "<td><input type='number' class='form-control' id='max_post_experiments" + ($('#unitForm').children().size() + 1) + "' value='0' min='0'></td>";
                     data += "</tr>";
                     $('#unitForm').append(data);
                 }
