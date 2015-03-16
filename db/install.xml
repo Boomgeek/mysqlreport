@@ -30,9 +30,8 @@
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="answer" TYPE="text" NOTNULL="true"/>
         <FIELD NAME="answer_count" TYPE="char" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
-        <FIELD NAME="cheat" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="status" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
-        <FIELD NAME="point" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
+        <FIELD NAME="point" TYPE="float" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="comment" TYPE="text" DEFAULT="NULL"/>
       </FIELDS>
       <KEYS>
@@ -64,6 +63,7 @@
         <FIELD NAME="article" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="type" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="max_practice_point" TYPE="float" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="difficulty_index" TYPE="char" LENGTH="5" NOTNULL="true" DEFAULT="0"/>
       </FIELDS>
       <KEYS>
@@ -81,6 +81,7 @@
         <FIELD NAME="unit" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true" UNIQUE="true"/>
         <FIELD NAME="max_in_experiments" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="max_post_experiments" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="max_unit_point" TYPE="float" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="uid"/>
