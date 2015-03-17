@@ -1,28 +1,57 @@
 <?php 
 
-$unit = $_REQUEST["unit"];
-if(empty($unit)){
-	echo "Error: unit was empty";
-	exit(0);
-}
-$uname = $_REQUEST["uname"];
-if(empty($uname)){
-	echo "Error: uname was empty";
-	exit(0);
-}
-$max_in_experiments = $_REQUEST["max_in_experiments"];
-if($max_in_experiments < 0){
-	echo "Error: max_in_experiments was empty";
-	exit(0);
-}
-$max_post_experiments = $_REQUEST["max_post_experiments"];
-if($max_post_experiments < 0){
-	echo "Error: max_post_experiments was empty";
+$mode = $_REQUEST["mode"];
+if(empty($mode)){
+	echo "Error: mode was empty";
 	exit(0);
 }
 
-insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
+if($mode == 'unitSetting')
+{
+	$unit = $_REQUEST["unit"];
+	if(empty($unit)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+	$uname = $_REQUEST["uname"];
+	if(empty($uname)){
+		echo "Error: uname was empty";
+		exit(0);
+	}
+	$max_in_experiments = $_REQUEST["max_in_experiments"];
+	if($max_in_experiments < 0){
+		echo "Error: max_in_experiments was empty";
+		exit(0);
+	}
+	$max_post_experiments = $_REQUEST["max_post_experiments"];
+	if($max_post_experiments < 0){
+		echo "Error: max_post_experiments was empty";
+		exit(0);
+	}
 
+	insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
+}
+
+if($mode == 'practiceSetting')
+{
+	$function = $_REQUEST["function"];
+	if(empty($function)){
+		echo "Error: function was empty";
+		exit(0);
+	}
+
+	if($function == 'loadForm')
+	{
+		loadPracticeForm();
+	}
+
+	if($function == 'saveForm')
+	{
+		//
+	}
+}
+
+//start function zone
 function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 {
 	include("./model_connection.php");
@@ -87,4 +116,17 @@ function insertPractice($unit,$con)
 		exit();
 	}
 }
+
+function loadPracticeForm()
+{
+	echo "<tr>";
+	echo "<td>1</td>";
+	echo "<td>1</td>";
+	echo "<td>In experiment</td>";
+	echo "<td>1</td>";
+	echo "<td><input type='number' class='form-control' id='max_post_experiments1' value='0' min='0' step='0.1'></td>";
+	echo "<td><textarea rows='2' cols='80'></textarea></td>";
+	echo "</tr>";	
+}
+//end function zone
 ?>
