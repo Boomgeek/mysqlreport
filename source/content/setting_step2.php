@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-lg-12 content">
 			<div class="table-responsive">
-				<table class="table table-condensed">
+				<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>#</th>
