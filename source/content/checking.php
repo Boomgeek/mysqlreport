@@ -18,11 +18,22 @@ if($result = mysqli_query($con,$select))
 	$numrow = mysqli_num_rows($result);
 	if($numrow == 0)						//first using mysqlreport 
 	{
-		include("./setting.php");
+		include("./setting_step1.php");
 	}
 	else
 	{
-		include("./assignment.php");
+		$select = "select * from mdl_mysql_practice where (max_practice_point = 0) OR (question IS NULL)";
+		if($result = mysqli_query($con,$select)){
+			$numrow = mysqli_num_rows($result);
+			if($numrow > 0)						//first using mysqlreport 
+			{
+				include("./setting_step2.php");		//goto step 2
+			}
+			else
+			{
+				include("./assignment.php");
+			}
+		}
 	}
 }
 else
