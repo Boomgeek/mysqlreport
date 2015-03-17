@@ -2,7 +2,7 @@
 	<!--#page-header-->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Setting Experiment</h1>	
+			<h1 class="page-header"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Setting Unit [Step1]</h1>	
 		</div>
 	</div>
 	<!--#page-header-->
@@ -33,9 +33,9 @@
 						</tbody>
 				</table>
 			</div>
-			<button type="button" id="saveSetting" class="btn btn-primary btn-lg center-block">Save</button>
+			<button type="button" id="nextSetting" class="btn btn-primary btn-lg center-block">Next</button>
 		</div>
 	</div>
 
 </body>
-<script src="./source/js/content_setting.js"></script>
+<script src="./source/js/content_setting_step1.js"></script>
