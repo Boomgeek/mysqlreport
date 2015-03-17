@@ -47,23 +47,32 @@ if($mode == 'practiceSetting')
 
 	if($function == 'saveForm')
 	{
-		//
+		$pid = $_REQUEST["pid"];
+		if(empty($pid)){
+			echo "Error: pid was empty";
+			exit(0);
+		}
+
+		$max_point = $_REQUEST["max_point"];
+		if(empty($max_point)){
+			echo "Error: max_point was empty";
+			exit(0);
+		}
+
+		$question = $_REQUEST["question"];
+		if(empty($question)){
+			echo "Error: question was empty";
+			exit(0);
+		}
+		savePracticeForm($pid, $max_point, $question);
 	}
 }
 
 //start function zone
 function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 {
-	include("./model_connection.php");
-	include("./model_getJsonConnection.php");
-
-	//get json connection
-	$gjc = new getJsonConnection();
-	$c = $gjc->getConnection('../connection.json');
-	//get connect to db
-	$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
-	$cdb->connect();
-	$con = $cdb->con;
+	include("./connection.php");
+	$con = connection();
 	//insert query
 	$insert = "insert into mdl_mysql_unit (unit, uname, max_in_experiments, max_post_experiments) ";
 	$insert .= "values(".$unit.",'".$uname."',".$max_in_experiments.",".$max_post_experiments.")";
@@ -119,14 +128,50 @@ function insertPractice($unit,$con)
 
 function loadPracticeForm()
 {
-	echo "<tr>";
-	echo "<td>1</td>";
-	echo "<td>1</td>";
-	echo "<td>In experiment</td>";
-	echo "<td>1</td>";
-	echo "<td><input type='number' class='form-control' id='max_post_experiments1' value='0' min='0' step='0.1'></td>";
-	echo "<td><textarea rows='2' cols='80'></textarea></td>";
-	echo "</tr>";	
+	include("./connection.php");
+	$con = connection();
+
+	$select = "select pid,uid,type,article from mdl_mysql_practice where (max_practice_point = 0) OR (question IS NULL) ORDER BY uid ASC";
+	if($result = mysqli_query($con,$select))
+	{
+		$num = 1;
+		while($data = mysqli_fetch_array($result,MYSQLI_NUM)){
+			$pid = $data[0];
+			$selectUnit = "select unit from mdl_mysql_unit where uid = ".$data[1];
+			$unitResult = mysqli_query($con,$selectUnit);
+			$unit = mysqli_fetch_array($unitResult,MYSQLI_NUM);
+			echo "<tr>";
+			echo "<td id='pid_".$num."' hidden>".$pid."</td>";
+			echo "<td>".$num."</td>";
+			echo "<td>".$unit[0]."</td>";
+			echo "<td>".($data[2] == 1 ? "In experiments" : "Pass experiments")."</td>";
+			echo "<td>".$data[3]."</td>";
+			echo "<td><input type='number' class='form-control' id='max_point_".$num."' value='1' min='1' step='0.1'></td>";
+			echo "<td><textarea id='question_".$num."' rows='2' cols='80'></textarea></td>";
+			echo "</tr>";
+			$num++;
+		}
+	}else{
+		printf("Question Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
+function savePracticeForm($pid, $max_point, $question)
+{
+	include("./connection.php");
+	$con = connection();
+
+	$update = "update mdl_mysql_practice set max_practice_point=".$max_point.",question='".$question."' where pid=".$pid;
+	if($result = mysqli_query($con,$update))
+	{
+		echo "Success: Update table successful.";
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
 }
 //end function zone
 ?>
