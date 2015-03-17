@@ -178,7 +178,7 @@ function getAssignment($unit,$type,$article)
 				echo "<tbody>";
 			}
 		}else{
-			printf("Error: %s", mysqli_error($this->con));
+			printf("Question Error: %s", mysqli_error($con));
 			exit();
 		}
 
@@ -202,7 +202,7 @@ function getAssignment($unit,$type,$article)
 	}
 	else
 	{
-		printf("Error: %s", mysqli_error($this->con));
+		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
 }
