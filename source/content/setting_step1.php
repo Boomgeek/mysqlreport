@@ -24,10 +24,10 @@
 						</thead>
 						<tbody id="unitForm">
 							<tr>
-								<td id="unit1">1</td>
-								<td><input type="text" class="form-control"  id="uname1" placeholder="Enter Unit Name"></td>
-								<td><input type="number" class="form-control" id="max_in_experiments1" value="0" min="0"></td>
-								<td><input type="number" class="form-control" id="max_post_experiments1" value="0" min="0"></td>
+								<td id="unit_1">1</td>
+								<td><input type="text" class="form-control"  id="uname_1" placeholder="Enter Unit Name"></td>
+								<td><input type="number" class="form-control" id="max_in_experiments_1" value="0" min="0"></td>
+								<td><input type="number" class="form-control" id="max_post_experiments_1" value="0" min="0"></td>
 							</tr>
 							
 						</tbody>
