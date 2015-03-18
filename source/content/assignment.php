@@ -1,3 +1,15 @@
+<?php  
+require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/config.php');
+require_once(dirname(dirname(dirname(__FILE__))).'/lib.php');
+	
+	$is_student = user_has_role_assignment($USER->id,5)==0? "0" : "1";
+	$is_admin = is_siteadmin()==0? "0" : "1";
+	//check now user is student
+	echo "student :".$is_student."<br>"; // $roleid == 5 for student role //inside functions declare "global $USER;"
+
+	//check now user is admin
+	echo "admin: ".$is_admin;
+?>
 <body>
 	<h1 class="page-header">Hello Assignment</h1>
 	<div class="form-group">
