@@ -151,7 +151,15 @@ function getAssignment($unit,$type,$article)
 	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
 	$pid = "select pid from mdl_mysql_practice where uid=(".$uid.") AND type=".$type." AND article=".$article;
 	$select = "select aid,sid,answer from mdl_mysql_answer where pid = (".$pid.") AND status = 0 ORDER BY sid ASC";
-	$maxPoint = 1;
+	
+	$selectMaxPoint = "select max_practice_point from mdl_mysql_practice where pid=(".$pid.")";
+	if($resultMaxPoint = mysqli_query($con,$selectMaxPoint)){
+		$maxPoint = mysqli_fetch_array($resultMaxPoint,MYSQLI_NUM);				//select max_practice_point
+	}else{
+		printf("Question Error: %s", mysqli_error($con));
+		exit();
+	}
+
 	if($result = mysqli_query($con,$select))
 	{
 		if($type == 1){
@@ -185,14 +193,25 @@ function getAssignment($unit,$type,$article)
 		$num=1;
 		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
 		{
+			//select max_practice_point
+			$selectFullName = "select firstname,lastname from mdl_user where username='".$data[1]."'";
+			if($resultFullName = mysqli_query($con,$selectFullName)){
+				$fullName = mysqli_fetch_array($resultFullName,MYSQLI_NUM);
+				$fullName = $fullName[0]." ".$fullName[1];
+			}else{
+				printf("Select fullname Error: %s", mysqli_error($con));
+				exit();
+			}
+			//select max_practice_point
+
 			echo "<tr>";
 			echo "<td>".$num."</td>";
 			echo "<td id='aid_".$num."' hidden>".$data[0]."</td>";
 			echo "<td>".$data[1]."</td>";
-			echo "<td width='150'>Mr. Boom</td>";
+			echo "<td width='150'>".$fullName."</td>";
 			echo "<td width='180'>".$data[2]."</td>";
 			echo "<td><label><input type='radio' name='status_".$num."' value='1' checked>Correct</label><br> <label><input type='radio' name='status_".$num."' value='2'>Wrong</label></td>";
-			echo "<td><input type='number' id='point_".$num."' value='0' min='0' step='0.1'><b> / ".$maxPoint."</b>";
+			echo "<td><input type='number' id='point_".$num."' value='0' min='0' max='".$maxPoint[0]."' step='0.1'><b> / ".$maxPoint[0]."</b>";
 			echo "<td><textarea class='form-control' id='comment_".$num."' rows='2' cols='40'></textarea></td>";
 			echo "</tr>";
 			$num++;
