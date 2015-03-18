@@ -28,6 +28,10 @@ $(document).ready(function() {
     $('#article-Filter').change(function() {
         callAssignment();
     });
+
+    $('#saveAssignment').click(function() {
+        pushAnswerCheckedForm();
+    });
     //end event listener zone
 
 });
@@ -55,6 +59,34 @@ function callAssignment(){
                 $('#assignment-Content').html(result);
             }
         });
+}
+
+function callAnswerChecked(aid, status, point, comment) {
+    //alert("mode=saveAnswerChecked&aid=" + aid + "&status=" + status + "&point=" + point + "&comment=" + comment);
+    $.ajax({
+        url: "./source/php/model_assignment.php",
+        type: "POST",
+        data: "mode=saveAnswerChecked&aid=" + aid + "&status=" + status + "&point=" + point + "&comment=" + comment,
+        success: function(result) {
+            callContent("checking.php"); //this function from dashboard.js
+        }
+    });
+}
+
+function pushAnswerCheckedForm() {
+    var assignmentFormSize = $('#assignmentForm').children().size(); //check size of children array 
+    var i;
+
+    for (i = 1; i <= assignmentFormSize; i++) { //get information with DOM
+        var aid = $('#aid_' + i).text();
+        var status = $("input[name='status_"+i+"']:checked").val();
+        var point = $('#point_' + i).val();
+        var comment = $('#comment_' + i).val();
+        if(comment == ""){
+            comment = "NULL";
+        }
+        callAnswerChecked(aid, status, point, comment);
+    }
 }
 
 //end fucntion zone

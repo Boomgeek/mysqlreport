@@ -59,6 +59,57 @@ if($mode == 'assignment'){
 	getAssignment($unit,$type,$article);
 }
 
+if($mode == "saveAnswerChecked")
+{
+	$aid = $_REQUEST["aid"];
+	if(empty($aid)){
+		echo "Error: aid was empty";
+		exit(0);
+	}
+
+	$status = $_REQUEST["status"];
+	if(empty($status)){
+		echo "Error: status was empty";
+		exit(0);
+	}
+
+	$point = $_REQUEST["point"];
+	if($point<0 || !is_numeric($point)){
+		echo "Error: point is not number or point < 0";
+		exit(0);
+	}
+
+	$comment = $_REQUEST["comment"];
+	if(empty($comment)){
+		echo "Error: comment was empty";
+		exit(0);
+	}
+
+	saveAnswerChecked($aid,$status,$point,$comment);
+}
+
+function saveAnswerChecked($aid,$status,$point,$comment)
+{
+	include("./connection.php");
+	$con = connection();
+
+	if($comment == "NULL"){
+		$update = "update mdl_mysql_answer set status=".$status.",point=".$point.",comment= NULL where aid=".$aid;
+	}else{
+		$update = "update mdl_mysql_answer set status=".$status.",point=".$point.",comment='".$comment."' where aid=".$aid;
+	}
+
+	if($result = mysqli_query($con,$update))
+	{
+		echo "Success: Update table successful.";
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
 function getUnitDropdown()
 {
 	include("./connection.php");
@@ -77,7 +128,7 @@ function getUnitDropdown()
 	}
 	else
 	{
-		printf("Error: %s", mysqli_error($this->con));
+		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
 }
@@ -104,7 +155,7 @@ function getTypeDropdown($unit)
 	}
 	else
 	{
-		printf("Error: %s", mysqli_error($this->con));
+		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
 }
@@ -133,7 +184,7 @@ function getArticleDropdown($unit,$type)
 	}
 	else
 	{
-		printf("Error: %s", mysqli_error($this->con));
+		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
 }
@@ -183,7 +234,7 @@ function getAssignment($unit,$type,$article)
 				echo "<th>Point</th>";
 				echo "<th>Commment</th>";
 				echo "</tr></thead>";
-				echo "<tbody>";
+				echo "<tbody id='assignmentForm'>";
 			}
 		}else{
 			printf("Question Error: %s", mysqli_error($con));
