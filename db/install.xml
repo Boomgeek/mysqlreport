@@ -60,7 +60,7 @@
     <TABLE NAME="mysql_practice" COMMENT="mysql_practice is keep practice information">
       <FIELDS>
         <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-        <FIELD NAME="article" TYPE="char" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="article" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="type" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="max_practice_point" TYPE="float" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
