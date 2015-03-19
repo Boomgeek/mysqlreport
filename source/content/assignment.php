@@ -11,7 +11,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/lib.php');
 	echo "admin: ".$is_admin;
 ?>
 <body>
-	<h1 class="page-header">Hello Assignment</h1>
+	<h1 class="page-header"><span class="fa fa-fw fa-edit" aria-hidden="true"></span>Assignment</h1>
 	<div class="form-group">
 		<div class="form-inline">
 			<label>Unit:</label>
