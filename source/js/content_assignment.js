@@ -57,6 +57,14 @@ function callAssignment(){
             data: "mode=assignment&unit="+$('#unit-Filter').val()+"&type="+$('#type-Filter').val()+"&article="+$('#article-Filter').val(),
             success: function(result) {
                 $('#assignment-Content').html(result);
+                //checking for not have content
+                if($('#assignment-Content').html() == ""){
+                    var data;
+                    data = "<div class='alert alert-danger alert-dismissible'>";
+                    data += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
+                    data += "<strong>Assignment is empty :</strong> No students submits.</div>";
+                    $("#assignment-Content").html(data);
+                }
             }
         });
 }
