@@ -3,6 +3,7 @@ if(empty($USER->username)){
 	header( "refresh: 0; url=../../login/index.php" );		//redirect to http://localhost/moodle/login/index.php
 	exit(0);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -155,7 +156,7 @@ if(empty($USER->username)){
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                 	<li class="active">
-		            	<a href="javascript:void(0);" id="asssignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment</a>
+		            	<a href="javascript:void(0);" id="asssignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment <span class="badge">4</span></a>
 		            </li>
                     <li class="">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-desktop"></i> Progressive <i class="fa fa-fw fa-caret-down"></i></a>
