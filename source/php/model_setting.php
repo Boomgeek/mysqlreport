@@ -131,19 +131,17 @@ function loadPracticeForm()
 	include("./connection.php");
 	$con = connection();
 
-	$select = "select pid,uid,type,article from mdl_mysql_practice where (max_practice_point = 0) OR (question IS NULL) ORDER BY uid ASC";
+	$table1 = "(select pid,uid,type,article from mdl_mysql_practice where (max_practice_point = 0) OR (question IS NULL))";
+	$table2 = "(select uid,unit from mdl_mysql_unit)";
+	$select = "select pid,unit,type,article from ".$table1." as t1 LEFT JOIN ".$table2." as t2 ON t1.uid=t2.uid ORDER BY unit ASC, type ASC, article ASC"; 
 	if($result = mysqli_query($con,$select))
 	{
 		$num = 1;
 		while($data = mysqli_fetch_array($result,MYSQLI_NUM)){
-			$pid = $data[0];
-			$selectUnit = "select unit from mdl_mysql_unit where uid = ".$data[1];
-			$unitResult = mysqli_query($con,$selectUnit);
-			$unit = mysqli_fetch_array($unitResult,MYSQLI_NUM);
 			echo "<tr>";
-			echo "<td id='pid_".$num."' hidden>".$pid."</td>";
+			echo "<td id='pid_".$num."' hidden>".$data[0]."</td>";
 			echo "<td>".$num."</td>";
-			echo "<td>".$unit[0]."</td>";
+			echo "<td>".$data[1]."</td>";
 			echo "<td>".($data[2] == 1 ? "In experiments" : "Pass experiments")."</td>";
 			echo "<td>".$data[3]."</td>";
 			echo "<td><input type='number' class='form-control' id='max_point_".$num."' value='1' min='1' step='0.1'></td>";
