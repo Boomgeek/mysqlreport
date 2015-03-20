@@ -25,7 +25,7 @@ if($mode == 'type'){
 
 	$unit = $_REQUEST["unit"];
 	if(empty($mode)){
-		echo "Error: mode was empty";
+		echo "Error: unit was empty";
 		exit(0);
 	}
 	getTypeDropdown($status,$unit);
@@ -54,6 +54,23 @@ if($mode == 'article'){
 	getArticleDropdown($status,$unit,$type);
 }
 
+if($mode=="unitStudent")
+{
+	$status = 1;
+	getUnitDropdownStudent($status);
+}
+
+if($mode=="typeStudent")
+{
+	$status = 1;
+	$unit = $_REQUEST["unit"];
+	if(empty($mode)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+	getTypeDropdownStudent($status,$unit);
+}
+
 if($mode == 'assignment'){
 
 	$status = $_REQUEST["status"];
@@ -80,15 +97,25 @@ if($mode == 'assignment'){
 		exit(0);
 	}
 
-	if($status == 0){
-		getAssignmentUnchecked($status,$unit,$type,$article);
-	}else if($status == 1){
-		getAssignmentChecked($status,$unit,$type,$article);
+	if($unit == "null" || $type == "null" || $article == "null"){
+		if($status == 0){
+			echo "Assignment is empty:Students not submitted";
+			exit(0);
+		}else if($status == 1){
+			echo "Assignment is empty:No assignments checked";
+			exit(0);
+		}
+	}else{
+		if($status == 0){
+			getAssignmentUnchecked($status,$unit,$type,$article);
+		}else if($status == 1){
+			getAssignmentChecked($status,$unit,$type,$article);
+		}
 	}
 }
 
-if($mode == "saveAnswerChecked")
-{
+if($mode == "saveAnswerChecked"){
+
 	$aid = $_REQUEST["aid"];
 	if(empty($aid)){
 		echo "Error: aid was empty";
@@ -115,6 +142,29 @@ if($mode == "saveAnswerChecked")
 
 	saveAnswerChecked($aid,$status,$point,$comment);
 }
+
+if($mode == "assignmentStudent"){
+	$status = 1;		//assignment checked for student
+
+	$unit = $_REQUEST["unit"];
+	if(empty($unit)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+
+	$type = $_REQUEST["type"];
+	if(empty($type)){
+		echo "Error: type was empty";
+		exit(0);
+	}
+	if($unit == "null" || $type == "null"){
+		echo "Assignment is empty:No assignments checked";
+		exit(0);
+	}else{
+		assignmentStudent($status,$unit,$type);
+	}
+}
+
 
 function saveAnswerChecked($aid,$status,$point,$comment)
 {
@@ -217,6 +267,67 @@ function getArticleDropdown($status,$unit,$type)
 	}
 }
 
+function getUnitDropdownStudent($status)
+{
+	//start require for use USER object of Moodle
+	require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/config.php');
+	require_once(dirname(dirname(dirname(__FILE__))).'/lib.php');
+	$sid = $USER->username;
+	//end require for use USER object of Moodle
+
+	include("./connection.php");
+	$con = connection();
+	$pid = "select distinct pid from mdl_mysql_answer where status=".$status." AND sid='".$sid."'";
+	$uid = "select distinct uid from mdl_mysql_practice where pid in(".$pid.")";
+	$select = "select unit from mdl_mysql_unit where uid in(".$uid.") ORDER BY unit ASC";
+
+	if($result = mysqli_query($con,$select))
+	{
+		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
+		{
+			echo "<option>".$data[0]."</option>";
+		}
+		
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
+function getTypeDropdownStudent($status,$unit)
+{
+	//start require for use USER object of Moodle
+	require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/config.php');
+	require_once(dirname(dirname(dirname(__FILE__))).'/lib.php');
+	$sid = $USER->username;
+	//end require for use USER object of Moodle
+
+	include("./connection.php");
+	$con = connection();
+	$pid = "select distinct pid from mdl_mysql_answer where status=".$status." AND sid='".$sid."'";
+	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
+	$select = "select distinct type from mdl_mysql_practice where pid in (".$pid.") and uid in (".$uid.") ORDER BY type ASC";
+
+	if($result = mysqli_query($con,$select))
+	{
+		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
+		{
+			if($data[0] == 1){
+				echo "<option>In Experiments</option>";
+			}else if($data[0] == 2){
+				echo "<option>Post Experiments</option>";
+			}
+		}
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
 function getAssignmentUnchecked($status,$unit,$type,$article)
 {
 	if($type == 'In Experiments'){
@@ -295,13 +406,10 @@ function getAssignmentUnchecked($status,$unit,$type,$article)
 			echo "</tr>";
 			$num++;
 		}
-		//if num = 1 is means not use while loop 
-		if($num == 1){
-			echo "Assignment is empty:Students not submitted";
-		}else{
-			echo "</tbody>";
-  			echo "</table></div></div></div>";
-		}
+
+		echo "</tbody>";
+  		echo "</table></div></div></div>";
+
 	}
 	else
 	{
@@ -388,19 +496,104 @@ function getAssignmentChecked($status,$unit,$type,$article)
 			echo "</tr>";
 			$num++;
 		}
-		//if num = 1 is means not use while loop 
-		if($num == 1){
-			echo "Assignment is empty:No assignments checked";
-		}else{
-			echo "</tbody>";
-  			echo "</table></div></div></div>";
-		}
+
+		echo "</tbody>";
+  		echo "</table></div></div></div>";
 	}
 	else
 	{
 		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
+}
+
+function assignmentStudent($status,$unit,$type)
+{
+	//start require for use USER object of Moodle
+	require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/config.php');
+	require_once(dirname(dirname(dirname(__FILE__))).'/lib.php');
+	$sid = $USER->username;
+	//end require for use USER object of Moodle
+
+	if($type == 'In Experiments'){
+		$type = 1;
+	}else if($type == 'Post Experiments'){
+		$type = 2;
+	}
+
+	include("./connection.php");
+	$con = connection();
+	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
+	$pid = "select pid from mdl_mysql_practice where uid=(".$uid.") AND type=".$type;
+	$select = "select pid,answer,point,comment from mdl_mysql_answer where pid in (".$pid.") AND status =".$status." AND sid='".$sid."' ORDER BY sid ASC";
+	
+	if($result = mysqli_query($con,$select))
+	{
+		if($type == 1){
+			$type = 'In Experiments';
+		}else if($type == 2){
+			$type = 'Post Experiments';
+		}
+
+		echo "<div class='panel panel-primary'><div class='panel-heading'>";
+		echo "<b>คำถาม</b> ";
+		echo "</div><div class='panel-body'>";
+		echo "<div class='table-responsive'><table class='table'>";
+		echo "<thead><tr>";
+		echo "<th>Article</th>";
+		echo "<th>Question</th>";
+		echo "<th>Answer</th>";
+		echo "<th>Point</th>";
+		echo "<th>Commment</th>";
+		echo "</tr></thead>";
+		echo "<tbody id='assignmentForm'>";
+
+		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
+		{
+			//select max_practice_point
+			$selectFullName = "select firstname,lastname from mdl_user where username='".$data[1]."'";
+			if($resultFullName = mysqli_query($con,$selectFullName)){
+				$fullName = mysqli_fetch_array($resultFullName,MYSQLI_NUM);
+				$fullName = $fullName[0]." ".$fullName[1];
+			}else{
+				printf("Select fullname Error: %s", mysqli_error($con));
+				exit();
+			}
+			//select max_practice_point
+
+			$selectInformation = "select question,max_practice_point,article from mdl_mysql_practice where pid=(".$data[0].")";		//ดึงคำถามมาแสดง
+			if($resultInformation= mysqli_query($con,$selectInformation)){
+				$information = mysqli_fetch_array($resultInformation,MYSQLI_NUM);
+				$question = $information[0];
+				$maxPoint = $information[1];
+				$article = $information[2];
+			}else{
+				printf("Information Error: %s", mysqli_error($con));
+				exit();
+			}
+			$answer = $data[1];
+			$point = $data[2];
+			$comment = $data[3];
+
+			echo "<tr>";
+			echo "<td>".$article."</td>";
+			echo "<td>".$question."</td>";
+			echo "<td width='150'>".$answer."</td>";
+			echo "<td><b>".$point." / ".$maxPoint[0]."</b>";
+			echo "<td>".$comment."</td>";
+			echo "</tr>";
+			$num++;
+		}
+
+		echo "</tbody>";
+  		echo "</table></div></div></div>";
+		
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}	
 }
 
 ?>
