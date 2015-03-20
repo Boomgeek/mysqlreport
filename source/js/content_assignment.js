@@ -40,6 +40,7 @@ $(document).ready(function() {
 
     $('#saveAssignment').click(function() {
         pushAnswerCheckedForm();
+        updateBadge();          //this function from dashboard.js. this file is run on dashboard.php
     });
     //end event listener zone
 
