@@ -8,6 +8,7 @@ $(document).ready(function() {
     //start event listener zone
     $('#asssignment-btn').click(function() {
         callContent("assignment.php");
+        updateBadge();
     });
     //end event listener zone
 
