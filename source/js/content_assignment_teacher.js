@@ -39,8 +39,9 @@ $(document).ready(function() {
     });
 
     $('#saveAssignment').click(function() {
-        pushAnswerCheckedForm();
-        updateBadge();          //this function from dashboard.js. this file is run on dashboard.php
+        pushAnswerCheckedForm(function(){
+            updateBadge();                  //this function from dashboard.js. this file is run on dashboard.php
+        });
     });
     //end event listener zone
 
@@ -101,7 +102,7 @@ function callSaveAnswerChecked(aid, status, point, comment) {
     });
 }
 
-function pushAnswerCheckedForm() {
+function pushAnswerCheckedForm(callback) {
     var assignmentFormSize = $('#assignmentForm').children().size(); //check size of children array 
     var i;
 
@@ -116,6 +117,7 @@ function pushAnswerCheckedForm() {
                 comment = "NULL";
             }
             callSaveAnswerChecked(aid, status, point, comment);
+            callback();
         }
     }
 }
