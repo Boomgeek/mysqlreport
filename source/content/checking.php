@@ -1,45 +1,52 @@
-<?php 
-//start include connecttion file
-include("../php/model_connection.php");
-include("../php/model_getJsonConnection.php");
+<?php
+require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/config.php');
+require_once(dirname(dirname(dirname(__FILE__))).'/lib.php');
+	
+$is_student = user_has_role_assignment($USER->id,5)==0? "0" : "1";
+$is_admin = is_siteadmin()==0? "0" : "1";
 
-//get json connection
-$gjc = new getJsonConnection();
-$c = $gjc->getConnection('../connection.json');
-//get connect to db
-$cdb = new connectDB($c['host'],$c['user'],$c['pass'],$c['dbname']);
-$cdb->connect();
-$con = $cdb->con;
-//end include connecttion file
+if($is_admin == 1){
+	contentAdmin();
+}else if($is_student == 1){
+	contentStudent();
+}
 
-$select = "select * from mdl_mysql_unit";
-if($result = mysqli_query($con,$select))
-{
-	$numrow = mysqli_num_rows($result);
-	if($numrow == 0)						//first using mysqlreport 
+function contentAdmin(){
+	include("../php/connection.php");
+	$con = connection();
+	$select = "select * from mdl_mysql_unit";
+	if($result = mysqli_query($con,$select))
 	{
-		include("./setting_step1.php");
-	}
-	else
-	{
-		$select = "select * from mdl_mysql_practice where (max_practice_point = 0) OR (question IS NULL)";
-		if($result = mysqli_query($con,$select)){
-			$numrow = mysqli_num_rows($result);
-			if($numrow > 0)						//first using mysqlreport 
-			{
-				include("./setting_step2.php");		//goto step 2
-			}
-			else
-			{
-				include("./assignment.php");
+		$numrow = mysqli_num_rows($result);
+		if($numrow == 0)						//first using mysqlreport 
+		{
+			include("./setting_step1.php");
+		}
+		else
+		{
+			$select = "select * from mdl_mysql_practice where (max_practice_point = 0) OR (question IS NULL)";
+			if($result = mysqli_query($con,$select)){
+				$numrow = mysqli_num_rows($result);
+				if($numrow > 0)						//first using mysqlreport 
+				{
+					include("./setting_step2.php");		//goto step 2
+				}
+				else
+				{
+					include("./assignment_teacher.php");
+				}
 			}
 		}
 	}
-}
-else
-{
-	printf("Error: %s", mysqli_error($con));
-	exit();
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}	
 }
 
- ?>
+function contentStudent(){
+	include("./assignment_student.php");
+}
+
+?>
