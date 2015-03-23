@@ -156,7 +156,7 @@ if(empty($USER->username)){
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                 	<li class="active">
-		            	<a href="javascript:void(0);" id="asssignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment <span class="badge" id="asssignment-badge"></span></a>
+		            	<a href="javascript:void(0);" id="asssignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment <?php if(is_siteadmin()){echo "<span class='badge' id='asssignment-badge'></span>";}?></a>
 		            </li>
                     <li class="">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-desktop"></i> Progressive <i class="fa fa-fw fa-caret-down"></i></a>
