@@ -48,7 +48,7 @@ function callAssignment(){
                     data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
                     $("#assignment-Content").html(data);
                 }else{
-                     $('#assignment-Content').html(result);
+                    $('#assignment-Content').html(result);
                 }
             }
         });
