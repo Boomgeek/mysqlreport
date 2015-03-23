@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -39,26 +40,17 @@
  *
  * The variable name for the capability definitions array is $capabilities
  *
- * @package    mod_mysqlreport
- * @copyright  2015 Your Name
+ * @package    mod
+ * @subpackage mysqlreport
+ * @copyright  2015 Supanut Dokmaithong
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-// Modify capabilities as needed and remove this comment.
 $capabilities = array(
-    'mod/mysqlreport:addinstance' => array(
-        'riskbitmask' => RISK_XSS,
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ),
-        'clonepermissionsfrom' => 'moodle/course:manageactivities'
-    ),
 
+/***************************** remove these comment marks and modify the code as needed
     'mod/mysqlreport:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
@@ -67,7 +59,7 @@ $capabilities = array(
             'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
+            'admin' => CAP_ALLOW
         )
     ),
 
@@ -79,4 +71,6 @@ $capabilities = array(
             'student' => CAP_ALLOW
         )
     ),
+******************************/
 );
+

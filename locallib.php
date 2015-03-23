@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -20,19 +21,20 @@
  * All the mysqlreport specific functions, needed to implement the module
  * logic, should go here. Never include this file from your lib.php!
  *
- * @package    mod_mysqlreport
- * @copyright  2015 Your Name
+ * @package    mod
+ * @subpackage mysqlreport
+ * @copyright  2015 Supanut Dokmaithong
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-/*
+/**
  * Does something really useful with the passed things
  *
  * @param array $things
  * @return object
- *function mysqlreport_do_something_useful(array $things) {
- *    return new stdClass();
- *}
  */
+//function mysqlreport_do_something_useful(array $things) {
+//    return new stdClass();
+//}

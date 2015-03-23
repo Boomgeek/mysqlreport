@@ -6,35 +6,23 @@ this module template code.
 * Unzip the archive and read this file
 
 * Rename the newmodule/ folder to the name of your module (eg "widget").
-  The module folder MUST be lower case and can't contain underscores. You should check the CVS contrib
+  The module folder MUST be lower case. You should check the CVS contrib
   area at http://cvs.moodle.org/contrib/plugins/mod/ to make sure that
-  your name is not already used by an other module. Registering the plugin
-  name @ http://moodle.org/plugins will secure it for you.
+  your name is not already used by an other module.
 
 * Edit all the files in this directory and its subdirectories and change
   all the instances of the string "newmodule" to your module name
   (eg "widget"). If you are using Linux, you can use the following command
   $ find . -type f -exec sed -i 's/newmodule/widget/g' {} \;
 
-  On a mac, use:
-  $ find . -type f -exec sed -i '' 's/newmodule/widget/g' {} \;
-
 * Rename the file lang/en/newmodule.php to lang/en/widget.php
   where "widget" is the name of your module
-
-* Rename all files in backup/moodle2/ folder by replacing "newmodule" with
-  the name of your module
-
-  On Linux you can perform this and previous steps by calling:
-  $ find . -depth -name '*newmodule*' -execdir bash -c 'mv -i "$1" "${1//newmodule/widget}"' bash {} \;
 
 * Place the widget folder into the /mod folder of the moodle
   directory.
 
 * Go to Settings > Site Administration > Development > XMLDB editor
   and modify the module's tables.
-  Make sure, that the web server has write-access to the db/ folder.
-  You need at least one table, even if your module doesn't use it.
 
 * Modify version.php and set the initial version of you module.
 
