@@ -156,25 +156,25 @@ if(empty($USER->username)){
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                 	<li class="active">
-		            	<a href="javascript:void(0);" id="asssignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment <?php if(is_siteadmin()){echo "<span class='badge' id='asssignment-badge'></span>";}?></a>
+		            	<a href="javascript:void(0);" id="assignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment <?php if(is_siteadmin()){echo "<span class='badge' id='asssignment-badge'></span>";}?></a>
 		            </li>
                     <li class="">
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-desktop"></i> Progressive <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#menuReport"><i class="fa fa-fw fa-desktop"></i> Report <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="menuReport" class="collapse">
                             <li>
-		                        <a href="#"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+		                        <a href="javascript:void(0);" id="progressive-btn"><i class="fa fa-fw fa-graduation-cap"></i> Progressive</a>
 		                    </li>
 		                    <li>
-		                        <a href="#"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+		                        <a href="javascript:void(0);"><i class="fa fa-fw fa-trophy"></i> Rating</a>
 		                    </li>
 		                    <li>
-		                        <a href="#"><i class="fa fa-fw fa-table"></i> Tables</a>
+		                        <a href="javascript:void(0);"><i class="fa fa-fw fa-table"></i> Item Difficulty</a>
 		                    </li>
 		                    <li>
-		                        <a href="#"><i class="fa fa-fw fa-edit"></i> Forms</a>
+		                        <a href="javascript:void(0);"><i class="fa fa-fw fa-flask"></i> Experiment Logs</a>
 		                    </li>
 		                    <li>
-		                        <a href="#"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+		                        <a href="javascript:void(0);"><i class="fa fa-fw fa-users"></i> Login Logs</a>
 		                    </li>
                         </ul>
                     </li>
