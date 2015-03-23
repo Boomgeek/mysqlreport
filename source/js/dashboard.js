@@ -6,9 +6,13 @@ $(document).ready(function() {
     //end load index content
 
     //start event listener zone
-    $('#asssignment-btn').click(function() {
+    $('#assignment-btn').click(function() {
         callContent("checking.php");
         updateBadge();
+    });
+    
+    $('#progressive-btn').click(function() {
+        callContent("progressive_teacher.php");
     });
     //end event listener zone
 
