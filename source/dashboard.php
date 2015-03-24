@@ -156,11 +156,15 @@ if(empty($USER->username)){
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                 	<li class="menu-control active">
-		            	<a href="javascript:void(0);" id="assignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment <?php if(is_siteadmin()){echo "<span class='badge' id='asssignment-badge'></span>";}?></a>
+		            	<a href="javascript:void(0);" id="assignment-btn"><i class="fa fa-fw fa-edit"></i> Assignment <?php if(is_siteadmin() || user_has_role_assignment($USER->id,3)){echo "<span class='badge' id='asssignment-badge'></span>";}?></a>
 		            </li>
                     <li class="menu-control">
 		                <a href="javascript:void(0);" id="progressive-btn"><i class="fa fa-fw fa-graduation-cap"></i> Progressive</a>
 		            </li>
+                    <?php  
+                        if(is_siteadmin() || user_has_role_assignment($USER->id,3))     //if user is admin or teacher then add this menu
+                        {   //start if
+                    ?>
 		            <li class="menu-control">
 		                <a href="javascript:void(0);"><i class="fa fa-fw fa-trophy"></i> Rating</a>
 		            </li>
@@ -173,6 +177,9 @@ if(empty($USER->username)){
 		            <li class="menu-control">
 		                <a href="javascript:void(0);"><i class="fa fa-fw fa-users"></i> Login Logs</a>
 		            </li>
+                    <?php 
+                        }   //end if
+                    ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
