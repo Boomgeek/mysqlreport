@@ -17,7 +17,7 @@ $(document).ready(function() {
     });
     
     $('#progressive-btn').click(function() {
-        callContent("progressive_teacher.php");
+        callContent("progressive.php");
     });
     //end event listener zone
 
