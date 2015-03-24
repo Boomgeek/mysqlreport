@@ -3,9 +3,10 @@ require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/config.php'
 require_once(dirname(dirname(dirname(__FILE__))).'/lib.php');
 	
 $is_student = user_has_role_assignment($USER->id,5)==0? "0" : "1";
+$is_teacher = user_has_role_assignment($USER->id,3)==0? "0" : "1";
 $is_admin = is_siteadmin()==0? "0" : "1";
 
-if($is_admin == 1){
+if($is_admin == 1 || $is_teacher == 1){
 	contentAdmin();
 }else if($is_student == 1){
 	contentStudent();
