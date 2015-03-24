@@ -9,7 +9,7 @@ function callProgressive(){
         $.ajax({
             url: "./source/php/model_progressive.php",
             type: "POST",
-            data: "mode=progressiveTeacher",
+            data: "mode=progressive",
             success: function(result) {
                 var res = result.split(":");
                 if(res[0]== "Error"){
