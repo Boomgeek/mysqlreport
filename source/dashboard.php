@@ -166,7 +166,7 @@ if(empty($USER->username)){
                         {   //start if
                     ?>
 		            <li class="menu-control">
-		                <a href="javascript:void(0);"><i class="fa fa-fw fa-trophy"></i> Rating</a>
+		                <a href="javascript:void(0);" id="rating-btn"><i class="fa fa-fw fa-trophy"></i> Rating</a>
 		            </li>
 		            <li class="menu-control">
 		                <a href="javascript:void(0);"><i class="fa fa-fw fa-table"></i> Item Difficulty</a>

@@ -19,6 +19,11 @@ $(document).ready(function() {
     $('#progressive-btn').click(function() {
         callContent("progressive.php");
     });
+    
+    $('#rating-btn').click(function() {
+        callContent("rating.php");
+    });
+    
     //end event listener zone
 
 });
