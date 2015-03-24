@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //start load index content
-    callContent("checking.php");
+    callContent("assignment_checking.php");
     updateBadge();
     //end load index content
 
@@ -12,7 +12,7 @@ $(document).ready(function() {
     });
     
     $('#assignment-btn').click(function() {
-        callContent("checking.php");
+        callContent("assignment_checking.php");
         updateBadge();
     });
     

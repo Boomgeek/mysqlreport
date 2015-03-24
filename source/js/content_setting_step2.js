@@ -27,7 +27,7 @@ function callPracticeUpdate(pid, max_point, question) {
         type: "POST",
         data: "mode=practiceSetting&function=saveForm&pid=" + pid + "&max_point=" + max_point + "&question=" + question,
         success: function(result) {
-        	callContent("checking.php"); //this function from dashboard.js
+        	callContent("assignment_checking.php"); //this function from dashboard.js
         }
     });
 }

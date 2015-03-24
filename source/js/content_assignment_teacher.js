@@ -90,7 +90,7 @@ function callSaveAnswerChecked(aid, status, point, comment) {
         success: function(result) {
             var res = result.split(":");
             if(res[0] == "Success"){
-                callContent("checking.php"); //this function from dashboard.js
+                callContent("assignment_checking.php"); //this function from dashboard.js
             }else{
                 var data;
                 data = "<div class='alert alert-danger alert-dismissible'>";
