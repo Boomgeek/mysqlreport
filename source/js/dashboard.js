@@ -6,6 +6,11 @@ $(document).ready(function() {
     //end load index content
 
     //start event listener zone
+    $('.menu-control').click(function() {
+        $('.menu-control').removeClass('active');
+        $(this).addClass("active");
+    });
+    
     $('#assignment-btn').click(function() {
         callContent("checking.php");
         updateBadge();
