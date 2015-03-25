@@ -66,6 +66,12 @@ if($mode == 'practiceSetting')
 		}
 		savePracticeForm($pid, $max_point, $question);
 	}
+
+	if($function == 'saveUnitMaxPoint')
+	{
+		insertMaxUnitPoint();
+	}
+
 }
 
 //start function zone
@@ -164,6 +170,36 @@ function savePracticeForm($pid, $max_point, $question)
 	if($result = mysqli_query($con,$update))
 	{
 		echo "Success: Update table successful.";
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
+function insertMaxUnitPoint()
+{
+	include("./connection.php");
+	$con = connection();
+	$sumPoint = "select sum(max_practice_point) as max_point,uid from mdl_mysql_practice where uid in (select distinct uid from mdl_mysql_unit  ORDER BY unit ASC) GROUP BY uid";
+	$orderUnit = "select distinct unit,uid from mdl_mysql_unit  ORDER BY unit ASC";
+	$unitMaxPoint = "select max_point,unit from (".$sumPoint.") as t1 INNER JOIN (".$orderUnit.") as t2 ON t1.uid = t2.uid ORDER BY unit ASC";
+	
+	if($result = mysqli_query($con,$unitMaxPoint))
+	{
+		while($data = mysqli_fetch_array($result,MYSQLI_NUM)){
+			$update = "update mdl_mysql_unit SET max_unit_point=".$data[0]." where unit=".$data[1];
+			if($resultUpdate = mysqli_query($con,$update))
+			{
+				echo "Success: Update max_unit_point successful.";
+			}
+			else
+			{
+				printf("Error: %s", mysqli_error($con));
+				exit();
+			}
+		}
 	}
 	else
 	{
