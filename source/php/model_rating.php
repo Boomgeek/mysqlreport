@@ -16,7 +16,7 @@ function getRating()
 	$con = connection();
 	$id = "select DISTINCT userid from mdl_role_assignments where roleid in (3,5)";			//5 is student. 3 is teacher 
 	$userInfo = "select username,CONCAT(firstname,' ',lastname) As fullname from mdl_user where id in (".$id.")";
-	$unitInfo = "select uid,unit,(max_in_experiments+max_post_experiments) as max_point from mdl_mysql_unit ORDER BY unit ASC";
+	$unitInfo = "select uid,unit,max_unit_point as max_point from mdl_mysql_unit ORDER BY unit ASC";
 
 	echo "<div class='table-responsive'><table class='table'><thead><tr>";
 	echo "<th>SID</th>";
@@ -49,7 +49,7 @@ function getRating()
 			{
 				while($unit = mysqli_fetch_array($resultUnit,MYSQLI_NUM)){
 					$pid = "select pid from mdl_mysql_practice where uid = (".$unit[0].")";
-					$sumPoint = "select count(sid) as point from mdl_mysql_answer where pid in (".$pid.") AND sid='".$user[0]."'";
+					$sumPoint = "select sum(point) as point from mdl_mysql_answer where pid in (".$pid.") AND sid='".$user[0]."'";
 					if($resultPoint = mysqli_query($con,$sumPoint)){
 						while($point = mysqli_fetch_array($resultPoint,MYSQLI_NUM)){
 							if($point[0]==$unit[2]){
