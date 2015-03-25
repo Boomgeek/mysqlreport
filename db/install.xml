@@ -128,7 +128,7 @@
         <FIELD NAME="spid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="point" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true"/>
+        <FIELD NAME="point" TYPE="float" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="spid"/>
