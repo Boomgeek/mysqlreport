@@ -1,6 +1,8 @@
 $(document).ready(function (){
     //Start start windows zone
-    callRating();
+    UpdateStudentPoint(function() {
+    	callRating();
+    });
     //End start windows zone
 });
 
@@ -21,6 +23,19 @@ function callRating(){
                 }else{
                     $('#rating-Content').html(result);
                 }
+            }
+        });
+}
+
+function UpdateStudentPoint(callback)
+{
+	$.ajax({
+            url: "./source/php/model_rating.php",
+            type: "POST",
+            data: "mode=checkStudentPoint",
+            success: function(result) {
+                callback();
+                $('#rating-Content').html(result);
             }
         });
 }
