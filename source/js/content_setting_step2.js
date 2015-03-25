@@ -27,7 +27,18 @@ function callPracticeUpdate(pid, max_point, question) {
         type: "POST",
         data: "mode=practiceSetting&function=saveForm&pid=" + pid + "&max_point=" + max_point + "&question=" + question,
         success: function(result) {
-        	callContent("assignment_checking.php"); //this function from dashboard.js
+        	//callContent("assignment_checking.php"); //this function from dashboard.js
+        }
+    });
+}
+
+function callUnitMaxPointUpdate() {
+    $.ajax({
+        url: "./source/php/model_setting.php",
+        type: "POST",
+        data: "mode=practiceSetting&function=saveUnitMaxPoint",
+        success: function(result) {
+            callContent("assignment_checking.php"); //this function from dashboard.js
         }
     });
 }
@@ -47,5 +58,7 @@ function pushPracticeForm() {
         	return;
         }
     }
+    //if end loop update practice_point then update max_unit_point
+    callUnitMaxPointUpdate();
 }
 //end function zone
