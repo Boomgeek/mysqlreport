@@ -169,13 +169,13 @@ if(empty($USER->username)){
 		                <a href="javascript:void(0);" id="rating-btn"><i class="fa fa-fw fa-trophy"></i> Rating</a>
 		            </li>
 		            <li class="menu-control">
-		                <a href="javascript:void(0);"><i class="fa fa-fw fa-table"></i> Item Difficulty</a>
+		                <a href="javascript:void(0);" id="difficulty-btn"><i class="fa fa-fw fa-table"></i> Item Difficulty</a>
 		            </li>
 		            <li class="menu-control">
-		                <a href="javascript:void(0);"><i class="fa fa-fw fa-flask"></i> Experiment Logs</a>
+		                <a href="javascript:void(0);" id="ExperimentLogs-btn"><i class="fa fa-fw fa-flask"></i> Experiment Logs</a>
 		            </li>
 		            <li class="menu-control">
-		                <a href="javascript:void(0);"><i class="fa fa-fw fa-users"></i> Login Logs</a>
+		                <a href="javascript:void(0);" id="LoginLogs-btn"><i class="fa fa-fw fa-users"></i> Login Logs</a>
 		            </li>
                     <?php 
                         }   //end if

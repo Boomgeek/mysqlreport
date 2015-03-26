@@ -23,6 +23,18 @@ $(document).ready(function() {
     $('#rating-btn').click(function() {
         callContent("rating.php");
     });
+
+    $('#difficulty-btn').click(function() {
+        callContent("difficulty.php");
+    });
+
+    $('#ExperimentLogs-btn').click(function() {
+        callContent("experiment_logs.php");
+    });
+
+    $('#LoginLogs-btn').click(function() {
+        callContent("login_logs.php");
+    });
     
     //end event listener zone
 
