@@ -149,8 +149,9 @@ function getRating()
 							}else{
 								$progressColor = "progress-bar-warning";
 							}
-							if($point[0]==0){
+							if($point[0]==0 || $point[0] == NULL){
 								$color = "color: Black;";
+								$point[0] = 0;
 							}else{
 								$color = "color: White;";
 							}
