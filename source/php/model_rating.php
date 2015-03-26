@@ -172,7 +172,7 @@ function getRating()
 				printf("Unit2 Error: %s", mysqli_error($con));
 				exit();
 			}
-			if($user[2]<($user[3]/3)){
+			if($user[2]<($user[3]/4)){
 				$color = "color: Black;";
 			}else{
 				$color = "color: White;";
