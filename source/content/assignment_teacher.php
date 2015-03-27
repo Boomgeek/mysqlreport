@@ -22,7 +22,7 @@
 					<label>Article:</label>
 	     			<select id="article-Filter" class="form-control"></select>
 				</div>
-				</div>
+			</div>
 		</div>
 	</div>
 	<div id="assignment-Content"></div>
