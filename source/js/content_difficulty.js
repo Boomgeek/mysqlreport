@@ -1,6 +1,8 @@
 $(document).ready(function (){
     //Start start windows zone
-    callDifficulty();
+    updateDifficulty(function() {
+        callDifficulty();
+    });
     //End start windows zone
 });
 
@@ -9,7 +11,7 @@ function callDifficulty(){
         $.ajax({
             url: "./source/php/model_difficulty.php",
             type: "POST",
-            data: "mode=difficulty",
+            data: "mode=callDifficulty",
             success: function(result) {
                 var res = result.split(":");
                 if(res[0]== "Error"){
@@ -21,6 +23,17 @@ function callDifficulty(){
                 }else{
                     $('#Difficulty-Content').html(result);
                 }
+            }
+        });
+}
+
+function updateDifficulty(callback){
+        $.ajax({
+            url: "./source/php/model_difficulty.php",
+            type: "POST",
+            data: "mode=updateDifficulty",
+            success: function(result) {
+                callback();
             }
         });
 }
