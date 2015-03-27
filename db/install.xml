@@ -65,7 +65,7 @@
         <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="max_practice_point" TYPE="float" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="question" TYPE="text" DEFAULT="NULL"/>
-        <FIELD NAME="difficulty_index" TYPE="char" LENGTH="5" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="difficulty_index" TYPE="float" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="pid"/>
