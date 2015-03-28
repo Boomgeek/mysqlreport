@@ -74,12 +74,9 @@ function callDifficulty($unit)
 {
 	include("./connection.php");
 	$con = connection();
-	$id = "select DISTINCT userid from mdl_role_assignments where roleid in (3,5)";			//5 is student. 3 is teacher 
-	$userInfo = "select username as sid,CONCAT(firstname,' ',lastname) As fullname from mdl_user where id in (".$id.")";
-	$totalPoint = "select sid,cast(sum(point) as decimal(10,1)) as total_point from mdl_mysql_spoint group by sid";
-	$sumMaxUnitPoint = "select sum(max_unit_point) from mdl_mysql_unit";
-	$studentPoint = "select t1.sid,fullname,total_point,(".$sumMaxUnitPoint.") as max_point from (".$userInfo.") as t1 inner join (".$totalPoint.") as t2 where t1.sid = t2.sid ORDER BY total_point DESC";
-	$unitInfo = "select uid,unit,max_unit_point as max_point from mdl_mysql_unit ORDER BY unit ASC";
+	
+	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
+	$practiceInfo = "select uid,type,article,question,difficulty_index from mdl_mysql_practice where uid=(".$uid.")";
 
 	echo "<div class='table-responsive'><table class='table'><thead><tr>";
 	echo "<th>#</th>";
@@ -88,72 +85,47 @@ function callDifficulty($unit)
 	echo "<th>Question</th>";
 	echo "<th>Difficulty Index</th>";
 
-	if($resultUnit = mysqli_query($con,$unitInfo))
-	{
-		while($unit = mysqli_fetch_array($resultUnit,MYSQLI_NUM)){
-			echo "<th>Unit ".$unit[1]." Score</th>";
-		}
-	}
-	else
-	{
-		printf("Unit1 Error: %s", mysqli_error($con));
-		exit();
-	}
-
-	echo "<th>Total Score</th>";
 	echo "</tr></thead><tbody>";
 
-	if($resultUser = mysqli_query($con,$studentPoint))
+	if($resultPractice = mysqli_query($con,$practiceInfo))
 	{
 		$i = 1;
-		while($user = mysqli_fetch_array($resultUser,MYSQLI_NUM)){
+		while($practice = mysqli_fetch_array($resultPractice,MYSQLI_NUM)){
+			if($practice[1] == 1){
+				$practice[1] = "In Experiments";
+			}else if($practice[1] == 2){
+				$practice[1] = "Post Experiments";
+			}
 			echo "<tr>";
 			echo "<td>".$i++."</td>";
-			echo "<td>".$user[0]."</td>";
-			echo "<td>".$user[1]."</td>";
+			echo "<td>".$practice[1]."</td>";
+			echo "<td>".$practice[2]."</td>";
+			echo "<td>".$practice[3]."</td>";
+			//$practice[4] = 0.19;
+			if($practice[4] > 0.8){
+				$progressColor = "progress-bar-primary";
+			}else if($practice[4] > 0.6){
+				$progressColor = "progress-bar-info";
+			}else if($practice[4] > 0.5){
+				$progressColor = "progress-bar-info";
+			}else if($practice[4] == 0.5){
+				$progressColor = "progress-bar-success";
+			}else if($practice[4] > 0.4){
+				$progressColor = "progress-bar-warning";
+			}else if($practice[4] > 0.2){
+				$progressColor = "progress-bar-warning";
+			}else if($practice[4] >= 0){
+				$progressColor = "progress-bar-default";
+			}
 
-			if($resultUnit = mysqli_query($con,$unitInfo))
-			{
-				while($unit = mysqli_fetch_array($resultUnit,MYSQLI_NUM)){
-					$pid = "select pid from mdl_mysql_practice where uid = (".$unit[0].")";
-					$sumPoint = "select sum(point) as point from mdl_mysql_answer where pid in (".$pid.") AND sid='".$user[0]."'";
-					if($resultPoint = mysqli_query($con,$sumPoint)){
-						while($point = mysqli_fetch_array($resultPoint,MYSQLI_NUM)){
-							if($point[0]==$unit[2]){
-								$progressColor = "progress-bar-success";
-							}else{
-								$progressColor = "progress-bar-warning";
-							}
-							if($point[0]==0 || $point[0] == NULL){
-								$color = "color: Black;";
-								$point[0] = 0;
-							}else{
-								$color = "color: White;";
-							}
-							echo "<td><div class='progress'>";
-							echo "<div class='progress-bar ".$progressColor."' role='progressbar' aria-valuenow='".(($point[0]/$unit[2])*100)."' aria-valuemin='0' aria-valuemax='100' style='width: ".(($point[0]/$unit[2])*100)."%; ".$color."'>".$point[0]."/".$unit[2]."</div>";
-							echo "</div></td>";
-						}
-					}
-					else
-					{
-						printf("Point Error: %s", mysqli_error($con));
-						exit();
-					}
-				}
-			}
-			else
-			{
-				printf("Unit2 Error: %s", mysqli_error($con));
-				exit();
-			}
-			if($user[2]<($user[3]/4)){
+			if($practice[4]==0){
 				$color = "color: Black;";
 			}else{
 				$color = "color: White;";
 			}
+
 			echo "<td><div class='progress'>";
-			echo "<div class='progress-bar' role='progressbar' aria-valuenow='".(($user[2]/$user[3])*100)."' aria-valuemin='0' aria-valuemax='100' style='width: ".(($user[2]/$user[3])*100)."%; ".$color."'>".$user[2]."/".$user[3]."</div>";
+			echo "<div class='progress-bar ".$progressColor."' role='progressbar' aria-valuenow='".(($practice[4]/1)*100)."' aria-valuemin='0' aria-valuemax='100' style='width: ".(($practice[4]/1)*100)."%; ".$color."'>".$practice[4]."/1</div>";
 			echo "</div></td>";
 			echo "</tr>";
 		}
