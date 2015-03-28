@@ -32,10 +32,6 @@ $(document).ready(function() {
         callContent("experiment_logs.php");
     });
 
-    $('#LoginLogs-btn').click(function() {
-        callContent("login_logs.php");
-    });
-    
     //end event listener zone
 
 });

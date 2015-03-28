@@ -174,9 +174,6 @@ if(empty($USER->username)){
 		            <li class="menu-control">
 		                <a href="javascript:void(0);" id="ExperimentLogs-btn"><i class="fa fa-fw fa-flask"></i> Experiment Logs</a>
 		            </li>
-		            <li class="menu-control">
-		                <a href="javascript:void(0);" id="LoginLogs-btn"><i class="fa fa-fw fa-users"></i> Login Logs</a>
-		            </li>
                     <?php 
                         }   //end if
                     ?>
