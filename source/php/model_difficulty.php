@@ -76,7 +76,7 @@ function callDifficulty($unit)
 	$con = connection();
 	
 	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
-	$practiceInfo = "select uid,type,article,question,difficulty_index from mdl_mysql_practice where uid=(".$uid.")";
+	$practiceInfo = "select uid,type,article,question,difficulty_index from mdl_mysql_practice where uid=(".$uid.") ORDER BY type ASC ,article ASC";
 
 	echo "<div class='table-responsive'><table class='table'><thead><tr>";
 	echo "<th>#</th>";
