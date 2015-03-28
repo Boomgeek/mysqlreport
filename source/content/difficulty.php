@@ -10,6 +10,7 @@
 			</div>
 		</div>
 	</div>
+	<!--
 	<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-primary">
@@ -25,7 +26,21 @@
 				</div>
 			</div>
 	</div>
-	<div id="Difficulty-Content"></div>
+	-->
+	<div class="row">
+		<div class="col-lg-6">
+			<span class="label label-default">Very Hard</span>
+			<span class="label label-warning">Hard</span>
+			<span class="label label-success">Good</span>
+			<span class="label label-info">Easy</span>
+			<span class="label label-primary">Very Easy</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div id="Difficulty-Content"></div>
+		</div>
+	</div>
 </body>
 <script src="./source/js/plugins/morris/raphael.min.js"></script>
 <script src="./source/js/plugins/morris/morris.min.js"></script>

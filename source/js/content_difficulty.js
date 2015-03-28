@@ -57,28 +57,28 @@ function callUnitDropdown() {
         });
 }
 
-
+/*
     // Bar Chart
     Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
-            device: 'iPhone',
-            geekbench: 136
+            device: 'article 1',
+            geekbench: 0.6
         }, {
-            device: 'iPhone 3G',
-            geekbench: 137
+            device: 'article 2',
+            geekbench: 0.8
         }, {
-            device: 'iPhone 3GS',
-            geekbench: 275
+            device: 'article 3',
+            geekbench: 0
         }, {
-            device: 'iPhone 4',
-            geekbench: 380
+            device: 'article 4',
+            geekbench: 0.4
         }, {
-            device: 'iPhone 4S',
-            geekbench: 655
+            device: 'article 5',
+            geekbench: 0.5
         }, {
-            device: 'iPhone 5',
-            geekbench: 1571
+            device: 'article 6',
+            geekbench: 0.1
         }],
         xkey: 'device',
         ykeys: ['geekbench'],
@@ -87,4 +87,4 @@ function callUnitDropdown() {
         xLabelAngle: 0,
         hideHover: 'auto',
         resize: true
-    });
+    }); */
