@@ -56,35 +56,3 @@ function callUnitDropdown() {
             }
         });
 }
-
-/*
-    // Bar Chart
-    Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [{
-            device: 'article 1',
-            geekbench: 0.6
-        }, {
-            device: 'article 2',
-            geekbench: 0.8
-        }, {
-            device: 'article 3',
-            geekbench: 0
-        }, {
-            device: 'article 4',
-            geekbench: 0.4
-        }, {
-            device: 'article 5',
-            geekbench: 0.5
-        }, {
-            device: 'article 6',
-            geekbench: 0.1
-        }],
-        xkey: 'device',
-        ykeys: ['geekbench'],
-        labels: ['Geekbench'],
-        barRatio: 0.4,
-        xLabelAngle: 0,
-        hideHover: 'auto',
-        resize: true
-    }); */
