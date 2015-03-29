@@ -30,7 +30,7 @@ function progressiveTeacher()
 	include("./connection.php");
 	$con = connection();
 	$id = "select DISTINCT userid from mdl_role_assignments where roleid in (3,5)";			//5 is student. 3 is teacher 
-	$userInfo = "select username,CONCAT(firstname,' ',lastname) As fullname from mdl_user where id in (".$id.")";
+	$userInfo = "select username,CONCAT(firstname,' ',lastname) As fullname from mdl_user where id in (".$id.") ORDER BY username ASC";
 	$unitInfo = "select uid,unit,(max_in_experiments+max_post_experiments) as max_point from mdl_mysql_unit ORDER BY unit ASC";
 	
 
