@@ -19,8 +19,29 @@ function callExperimentLogs(){
                     data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
                     $("#ExperimentLogs-Content").html(data);
                 }else{
-                    $('#ExperimentLogs-Content').html(result);
+                    var data = result.split(",");
+                    callBarChart(data,"experiment-bar-chart");
                 }
             }
         });
 }
+
+function callBarChart(data_array,res)
+{
+    var data = [];
+    for(i=0 ; i<data_array.length ; i++){
+        data.push({article: 'Article '+(i+1),frequency: data_array[i]});
+    }
+    // Bar Chart
+    Morris.Bar({
+        element: res,
+        data: data,
+        xkey: 'article',
+        ykeys: ['frequency'],
+        labels: ['Experiment Frequency'],
+        barRatio: 0.4,
+        xLabelAngle: 0,
+        hideHover: 'auto',
+        resize: true,
+    });
+} 
