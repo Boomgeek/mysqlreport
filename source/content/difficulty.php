@@ -25,6 +25,4 @@
 		</div>
 	</div>
 </body>
-<script src="./source/js/plugins/morris/raphael.min.js"></script>
-<script src="./source/js/plugins/morris/morris.min.js"></script>
 <script src="./source/js/content_difficulty.js"></script>
