@@ -101,7 +101,7 @@ function callDifficulty($unit)
 			echo "<td>".$practice[1]."</td>";
 			echo "<td>".$practice[2]."</td>";
 			echo "<td>".$practice[3]."</td>";
-			//$practice[4] = 0.19;
+			//$practice[4] = 0.9;
 			if($practice[4] > 0.8){
 				$progressColor = "progress-bar-primary";
 			}else if($practice[4] > 0.6){
@@ -115,11 +115,11 @@ function callDifficulty($unit)
 			}else if($practice[4] > 0.2){
 				$progressColor = "progress-bar-warning";
 			}else if($practice[4] >= 0){
-				$progressColor = "progress-bar-default";
+				$progressColor = "progress-bar-danger";
 			}
 
 			if($practice[4]==0){
-				$color = "color: Black;";
+				$color = "color: Red;";
 			}else{
 				$color = "color: White;";
 			}

@@ -29,7 +29,7 @@
 	-->
 	<div class="row">
 		<div class="col-lg-6">
-			<span class="label label-default">Very Hard</span>
+			<span class="label label-danger">Very Hard</span>
 			<span class="label label-warning">Hard</span>
 			<span class="label label-success">Good</span>
 			<span class="label label-info">Easy</span>
