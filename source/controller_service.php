@@ -18,7 +18,8 @@ if($mode == "log")
 	{
 		echo "Error: code was empty";
 		exit(0);
-	}	
+	}
+	$code = addslashes($code);		// add backslash to front Symbols in string
 
 	$unit = $_REQUEST["unit"];
 	if(empty($unit))
