@@ -54,10 +54,13 @@ if(empty($USER->username)){
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $USER->username;?> <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $USER->firstname." ".$USER->lastname;?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="javascript:void(0);"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="javascript:void(0);"><i class="fa fa fa-wrench"></i> Unit Settings</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);"><i class="fa fa-fw fa-gear"></i> Practice Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li>
