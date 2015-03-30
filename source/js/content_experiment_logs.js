@@ -16,10 +16,43 @@ $(document).ready(function (){
     $('#type-Filter').change(function() {
         callExperimentLogs();
     });
+
+    $('#article-Filter').change(function() {
+        callExperimentDetails();
+    });
+    $('#viewDetails-btn').click(function() {
+        var logo = "<span class='fa fa-fw fa-flask' aria-hidden='true'></span>";
+        var title = logo+" Experiment Details of Unit "+$("#unit-Filter").val()+" ["+$("#type-Filter").val()+"]";
+        $('#experimentDetailTitle').html(title);
+        callArticleDropdown(function (){
+            callExperimentDetails();
+        });
+    });
     //End event listener zone
 });
 
 //start function zone
+function callExperimentDetails(){
+        $.ajax({
+            url: "./source/php/model_experiment_logs.php",
+            type: "POST",
+            data: "mode=callExperimentDetails&unit="+$("#unit-Filter").val()+"&type="+$("#type-Filter").val()+"&article="+$("#article-Filter").val(),
+            success: function(result) {
+                var res = result.split(":");
+                if(res[0]== "Error"){
+                    $('#panel-bar-chart').html(null);
+                    var data;
+                    data = "<div class='alert alert-danger alert-dismissible'>";
+                    data += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
+                    data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
+                    $("#experimentDetailStatus").html(data);
+                }else{
+                    $("#experimentDetailContent").html(result);
+                }
+            }
+        });
+}
+
 function callExperimentLogs(){
         $.ajax({
             url: "./source/php/model_experiment_logs.php",
@@ -98,3 +131,16 @@ function callTypeDropdown(callback)
         }
     });
 }
+
+function callArticleDropdown(callback)
+{
+    $.ajax({
+        url: "./source/php/model_experiment_logs.php",
+        type: "POST",
+        data: "mode=callArticleDropdown&unit="+$("#unit-Filter").val()+"&type="+$("#type-Filter").val(),
+        success: function(result) {
+            $("#article-Filter").html(result);
+            callback();
+        }
+    });
+} 
