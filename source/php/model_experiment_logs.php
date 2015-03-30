@@ -223,7 +223,7 @@ function callExperimentDetails($unit,$type,$article)
 	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
 	$pidInfo = "select pid from mdl_mysql_practice where uid=(".$uid.") AND type=(".$type.") AND article=(".$article.") ORDER BY article ASC";
 	$countInfo = "select sid,count(code) as frequency from mdl_mysql_log where pid=(".$pidInfo .") AND sid in(".$sid.") GROUP BY sid";
-	$frequencyInfo = "select t1.sid,fullname,frequency from (".$userInfo.") as t1 INNER JOIN (".$countInfo.") as t2 on t1.sid=t2.sid ORDER BY frequency DESC";
+	$frequencyInfo = "select t1.sid,fullname,frequency from (".$userInfo.") as t1 INNER JOIN (".$countInfo.") as t2 on t1.sid=t2.sid ORDER BY frequency DESC, t1.sid ASC";
 
 	echo "<div class='table-responsive'><table class='table'><thead><tr>";
 	echo "<th>No.</th>";
