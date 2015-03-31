@@ -35,6 +35,14 @@ $(document).ready(function() {
     $('#sign-out-btn').click(function() {
         window.location.replace("http://"+window.location.host+"/moodle/my/");
     });
+
+    $('#unit-settings-btn').click(function() {
+        callContent("setting_unit.php");
+    });
+
+    $('#practice-settings-btn').click(function() {
+        callContent("setting_practice.php");
+    });
     //end event listener zone
 
 });

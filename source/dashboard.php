@@ -57,11 +57,11 @@ if(empty($USER->username)){
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $USER->firstname." ".$USER->lastname;?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="javascript:void(0);"><i class="fa fa fa-wrench"></i> Unit Settings</a>
+                            <a href="javascript:void(0);" id="unit-settings-btn"><i class="fa fa fa-wrench"></i> Unit Settings</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);"><i class="fa fa-fw fa-gear"></i> Practice Settings</a>
-                        </li>
+                            <a href="javascript:void(0);" id="practice-settings-btn"><i class="fa fa-fw fa-gear"></i> Practice Settings</a>
+                        </li>   
                         <li class="divider"></li>
                         <li>
                             <a href="javascript:void(0);" id="sign-out-btn"><i class="fa fa-sign-out"></i> Back to Moodle</a>
