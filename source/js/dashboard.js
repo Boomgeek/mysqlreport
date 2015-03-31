@@ -32,6 +32,9 @@ $(document).ready(function() {
         callContent("experiment_logs.php");
     });
 
+    $('#sign-out-btn').click(function() {
+        window.location.replace("http://"+window.location.host+"/moodle/my/");
+    });
     //end event listener zone
 
 });

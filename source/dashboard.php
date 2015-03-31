@@ -64,7 +64,7 @@ if(empty($USER->username)){
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="javascript:void(0);"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="javascript:void(0);" id="sign-out-btn"><i class="fa fa-sign-out"></i> Back to Moodle</a>
                         </li>
                     </ul>
                 </li>
