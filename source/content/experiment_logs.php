@@ -51,6 +51,13 @@
 									<label>Article:</label>
 					     			<select id="article-Filter" class="form-control"></select>
 								</div>
+								<div class="col-md-6">
+									<label>Sort By:</label>
+					     			<select id="sort-Filter" class="form-control">
+					     				<option value="1">SID</option>
+					     				<option value="2">Frequency</option>
+					     			</select>
+								</div>
 							</div>
 						</div>
 					</div>

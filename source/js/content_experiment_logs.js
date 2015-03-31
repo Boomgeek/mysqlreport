@@ -20,6 +20,11 @@ $(document).ready(function (){
     $('#article-Filter').change(function() {
         callExperimentDetails();
     });
+
+    $('#sort-Filter').change(function() {
+        callExperimentDetails();
+    });
+
     $('#viewDetails-btn').click(function() {
         var logo = "<span class='fa fa-fw fa-flask' aria-hidden='true'></span>";
         var title = logo+" Experiment Details of Unit "+$("#unit-Filter").val()+" ["+$("#type-Filter").val()+"]";
@@ -36,7 +41,7 @@ function callExperimentDetails(){
         $.ajax({
             url: "./source/php/model_experiment_logs.php",
             type: "POST",
-            data: "mode=callExperimentDetails&unit="+$("#unit-Filter").val()+"&type="+$("#type-Filter").val()+"&article="+$("#article-Filter").val(),
+            data: "mode=callExperimentDetails&unit="+$("#unit-Filter").val()+"&type="+$("#type-Filter").val()+"&article="+$("#article-Filter").val()+"&sort="+$('#sort-Filter').val(),
             success: function(result) {
                 var res = result.split(":");
                 if(res[0]== "Error"){

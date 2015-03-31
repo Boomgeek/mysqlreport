@@ -94,12 +94,18 @@ if($mode == "callExperimentDetails")
 	}
 
 	$article = $_REQUEST['article'];
-	if(empty($unit)){
+	if(empty($article)){
 		echo "Error: article was empty";
 		exit(0);
 	}
 
-	callExperimentDetails($unit,$type,$article);
+	$sort = $_REQUEST['sort'];
+	if(empty($sort)){
+		echo "Error: sort was empty";
+		exit(0);
+	}
+
+	callExperimentDetails($unit,$type,$article,$sort);
 }
 
 function callUnitDropdown()
@@ -213,8 +219,14 @@ function callExperimentLogs($unit,$type)
 	}
 }
 
-function callExperimentDetails($unit,$type,$article)
+function callExperimentDetails($unit,$type,$article,$sort)
 {
+	if($sort == 1){
+		$sort = "t1.sid ASC";
+	}else if($sort == 2){
+		$sort = "frequency DESC, t1.sid ASC";
+	}
+
 	include("./connection.php");
 	$con = connection();
 	$id = "select DISTINCT userid from mdl_role_assignments where roleid in (3,5)";			//5 is student. 3 is teacher 
@@ -223,7 +235,7 @@ function callExperimentDetails($unit,$type,$article)
 	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
 	$pidInfo = "select pid from mdl_mysql_practice where uid=(".$uid.") AND type=(".$type.") AND article=(".$article.") ORDER BY article ASC";
 	$countInfo = "select sid,count(code) as frequency from mdl_mysql_log where pid=(".$pidInfo .") AND sid in(".$sid.") GROUP BY sid";
-	$frequencyInfo = "select t1.sid,fullname,frequency from (".$userInfo.") as t1 INNER JOIN (".$countInfo.") as t2 on t1.sid=t2.sid ORDER BY frequency DESC, t1.sid ASC";
+	$frequencyInfo = "select t1.sid,fullname,frequency from (".$userInfo.") as t1 INNER JOIN (".$countInfo.") as t2 on t1.sid=t2.sid ORDER BY ".$sort;
 
 	echo "<div class='table-responsive'><table class='table'><thead><tr>";
 	echo "<th>No.</th>";
@@ -265,8 +277,6 @@ function callExperimentDetails($unit,$type,$article)
 				printf("Error: %s", mysqli_error($con));
 				exit();
 			}
-
-			$i++;
 		}
 		echo "</tbody></table></div>";
 	}
