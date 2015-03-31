@@ -6,6 +6,22 @@ if(empty($mode)){
 	exit(0);
 }
 
+if($mode == 'callUnitSetting')
+{
+	callUnitSetting();
+}
+
+if($mode == 'deleteUnit')
+{
+	$unit = $_REQUEST["unit"];
+	if(empty($unit)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+
+	deleteUnit($unit);
+}
+
 if($mode == 'unitSetting')
 {
 	$unit = $_REQUEST["unit"];
@@ -75,6 +91,64 @@ if($mode == 'practiceSetting')
 }
 
 //start function zone
+function deleteUnit($unit)
+{
+	include("./connection.php");
+	$con = connection();
+
+	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
+	$deletePractice = "delete from mdl_mysql_practice where uid=(".$uid.")";
+	$deleteUnit = "delete from mdl_mysql_unit where unit=".$unit;
+	
+	if(mysqli_query($con,$deletePractice))
+	{
+		if(mysqli_query($con,$deleteUnit)){
+			echo "Success: Delete unit ".$unit." successful";
+		}else{
+			printf("Error: %s", mysqli_error($con));
+			exit();
+		}
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
+function callUnitSetting()
+{
+	include("./connection.php");
+	$con = connection();
+
+	$uidInfo = "select unit,uname,max_in_experiments,max_post_experiments from mdl_mysql_unit ORDER BY unit ASC";
+
+	echo "<div class='table-responsive'><table class='table'><thead><tr>";
+	echo "<th>Unit</th>";
+	echo "<th>Unit Name</th>";
+	echo "<th>Max in experiments</th>";
+	echo "<th>Max post experiments</th>";
+	echo "</tr></thead><tbody id='unitForm'>";
+
+	if($resultUnit = mysqli_query($con,$uidInfo))
+	{
+		$i = 1;
+		while($unit = mysqli_fetch_array($resultUnit,MYSQLI_NUM)){
+			echo "<tr class='update-unit'>";
+			echo "<td id='update_unit_".$i."'>".$unit[0]."</td>";
+			echo "<td><input type='text' id='update_uname_".$i."' class='form-control' value='".$unit[1]."'></td>";
+			echo "<td><input type='number' id='update_max_in_experiments_".$i."' class='form-control' value='".$unit[2]."' min='0'></td>";
+			echo "<td><input type='number' id='update_max_post_experiments_".$i."' class='form-control' value='".$unit[3]."' min='0'></td>";
+		}
+		echo "</tbody></table><button class='btn btn-primary' id='addUnit-btn'><span class='fa fa-plus'></span> Add Unit</button> <button class='btn btn-danger' id='delete-btn'><span class='fa fa-minus'></span> Delete Unit</button></div>";
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
 function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 {
 	include("./connection.php");
