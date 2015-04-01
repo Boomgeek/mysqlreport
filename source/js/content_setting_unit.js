@@ -42,7 +42,7 @@ function callUnitSetting(){
                     data = "<div class='alert alert-danger alert-dismissible'>";
                     data += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
                     data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
-                    $("#UnitSetting-Content").html(data);
+                    $("#status").html(data);
                 }else{
                     $('#UnitSetting-Content').html(result);
                 }

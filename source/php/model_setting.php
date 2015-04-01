@@ -118,7 +118,63 @@ if($mode == 'practiceSetting')
 
 }
 
+if($mode == "callPracticeSetting")
+{
+	$unit = $_REQUEST["unit"];
+	if(empty($unit)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+
+	$type = $_REQUEST["type"];
+	if(empty($type)){
+		echo "Error: type was empty";
+		exit(0);
+	}
+
+	callPracticeSetting($unit,$type);
+}
+
 //start function zone
+function callPracticeSetting($unit,$type)
+{
+	if($type == 'In Experiments'){
+		$type = 1;
+	}else if($type == 'Post Experiments'){
+		$type = 2;
+	}
+
+	include("./connection.php");
+	$con = connection();
+
+	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
+	$practiceInfo = "select pid,article,max_practice_point,question from mdl_mysql_practice where uid=(".$uid.") AND type=".$type." ORDER BY article ASC";
+	
+	echo "<div class='table-responsive'><table class='table'><thead><tr>";
+	echo "<th>Article</th>";
+	echo "<th>Max practice point</th>";
+	echo "<th>Question</th>";
+	echo "</tr></thead><tbody id='practiceForm'>";
+
+	if($result = mysqli_query($con,$practiceInfo))
+	{
+		$num = 1;
+		while($data = mysqli_fetch_array($result,MYSQLI_NUM)){
+			echo "<tr>";
+			echo "<td id='pid_".$num."' hidden>".$data[0]."</td>";
+			echo "<td>".$data[1]."</td>";
+			echo "<td><input type='number' class='form-control' id='max_point_".$num."' value='".$data[2]."' min='1' step='0.1'></td>";
+			echo "<td><textarea id='question_".$num."' rows='2' cols='80'>".$data[3]."</textarea></td>";
+			echo "</tr>";
+			$num++;
+		}
+		echo "</tbody></table></div>";
+	}else{
+		printf("Question Error: %s", mysqli_error($con));
+		exit();
+	}	
+}
+
 function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 {
 	include("./connection.php");
