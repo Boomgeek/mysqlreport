@@ -22,6 +22,35 @@ if($mode == 'deleteUnit')
 	deleteUnit($unit);
 }
 
+if($mode == 'updateUnit')
+{
+	$unit = $_REQUEST["unit"];
+	if(empty($unit)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+
+	$uname = $_REQUEST["uname"];
+	if(empty($uname)){
+		echo "Error: uname was empty";
+		exit(0);
+	}
+
+	$max_in_experiments = $_REQUEST["max_in_experiments"];
+	if(empty($unit)){
+		echo "Error: max_in_experiments was empty";
+		exit(0);
+	}
+
+	$max_post_experiments = $_REQUEST["max_post_experiments"];
+	if(empty($max_post_experiments)){
+		echo "Error: max_post_experiments was empty";
+		exit(0);
+	}
+
+	updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
+}
+
 if($mode == 'unitSetting')
 {
 	$unit = $_REQUEST["unit"];
@@ -91,6 +120,54 @@ if($mode == 'practiceSetting')
 }
 
 //start function zone
+function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
+{
+	include("./connection.php");
+	$con = connection();
+
+	$unitInfo = "select uid,max_in_experiments,max_post_experiments from mdl_mysql_unit where unit=".$unit;
+	$resultUnit = mysqli_query($con,$unitInfo);
+	$oldUnit = mysqli_fetch_array($resultUnit,MYSQLI_NUM);	
+
+	$update = "update mdl_mysql_unit set uname='".$uname."',max_in_experiments=".$max_in_experiments.",max_post_experiments=".$max_post_experiments." where unit=".$unit;
+	if(mysqli_query($con,$update))
+	{
+		if($max_in_experiments > $oldUnit[1]){
+			for($i=$oldUnit[1]+1; $i <= $max_in_experiments; $i++)
+			{
+				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",1,".$oldUnit[0].")";
+				mysqli_query($con,$insertPractice);
+			}
+		}else if($max_in_experiments < $oldUnit[1]){
+			for($i=$max_in_experiments+1; $i <= $oldUnit[1]; $i++)
+			{
+				$deletePractice = "delete from mdl_mysql_practice where uid=".$oldUnit[0]." AND type=1 AND article=".$i;
+				mysqli_query($con,$deletePractice);
+			}
+		}
+
+		if($max_post_experiments > $oldUnit[2]){
+			for($i=$oldUnit[2]+1; $i <= $max_post_experiments; $i++)
+			{
+				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",2,".$oldUnit[0].")";
+				mysqli_query($con,$insertPractice);
+			}
+		}else if($max_post_experiments < $oldUnit[2]){
+			for($i=$max_post_experiments+1; $i <= $oldUnit[2]; $i++)
+			{
+				$deletePractice = "delete from mdl_mysql_practice where uid=".$oldUnit[0]." AND type=2 AND article=".$i;
+				mysqli_query($con,$deletePractice);
+			}
+		}
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+	echo "Success: Insert Unit ".$unit." successful";
+}
+
 function deleteUnit($unit)
 {
 	include("./connection.php");

@@ -10,7 +10,12 @@ $(document).ready(function (){
 
     $('#UnitSetting-Content').delegate("#delete-btn", "click", function () {
     	deleteUnit();
-    });   
+    });
+
+    $('#saveUnit-btn').click(function() {
+    	updateUnit();
+    });
+
     //End event listener zone
 });
 
@@ -84,4 +89,45 @@ function deleteUnit(){
 		}
     }
 }
+
+function saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments)
+{
+		$.ajax({
+            url: "./source/php/model_setting.php",
+            type: "POST",
+            data: "mode="+mode+"&unit="+unit+"&uname="+uname+"&max_in_experiments="+max_in_experiments+"&max_post_experiments="+max_post_experiments,
+            success: function(result) {
+                var res = result.split(":");
+                if(res[0]== "Error"){
+                    var data;
+                    data = "<div class='alert alert-danger alert-dismissible'>";
+                    data += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
+                    data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
+                    $("#status").html(data);
+                }else if(res[0]== "Success"){
+	                var data;
+	                data = "<div class='alert alert-success alert-dismissible'>";
+	                data += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
+	                data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
+	                $('#status').html(data);
+                }
+            }
+        });
+}
+
+function updateUnit()
+{
+	var updateUnitSize = $('.update-unit').size();
+	var i;
+	for(i=1; i<=updateUnitSize; i++)
+	{
+		var unit = $('#update_unit_'+i).text();
+		var uname = $('#update_uname_' + i).val();
+        var max_in_experiments = $('#update_max_in_experiments_' + i).val();
+        var max_post_experiments = $('#update_max_post_experiments_' + i).val();
+        var mode = "updateUnit";
+        saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments);
+	}
+}
+
 //end function zone
