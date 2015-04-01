@@ -126,7 +126,7 @@ if(empty($USER->username)){
     <script src="./source/js/bootstrap.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-	<script src="./source/js/plugins/morris/morris.mins.js"></script>
+	<script src="./source/js/plugins/morris/morris.min.js"></script>
 
     <!--UX core Javascript-->
     <script src="./source/js/dashboard.js"></script>
