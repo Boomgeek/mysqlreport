@@ -31,8 +31,14 @@ function pushUnitForm() {
         var uname = $('#uname_' + i).val();
         var max_in_experiments = $('#max_in_experiments_' + i).val();
         var max_post_experiments = $('#max_post_experiments_' + i).val();
-
-        callUnitInsert(unit, uname, max_in_experiments, max_post_experiments);
+        
+        if(uname == ""){
+            alert("Unit Name was empty");
+            return;
+        }else{
+            callUnitInsert(unit, uname, max_in_experiments, max_post_experiments);
+        }
+        
     }
 }
 
