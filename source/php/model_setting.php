@@ -180,6 +180,9 @@ function deleteUnit($unit)
 	{
 		if(mysqli_query($con,$deleteUnit)){
 			echo "Success: Delete unit ".$unit." successful";
+			//delete spoint table when delete unit
+			$deleteSpoint = "delete from mdl_mysql_spoint";
+			mysqli_query($con,$deleteSpoint);
 		}else{
 			printf("Error: %s", mysqli_error($con));
 			exit();
@@ -236,12 +239,16 @@ function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 	if($result = mysqli_query($con,$insert))
 	{
 		insertPractice($unit,$con);
+		//delete spoint table when insert new unit
+		$deleteSpoint = "delete from mdl_mysql_spoint";
+		mysqli_query($con,$deleteSpoint);
 	}
 	else
 	{
 		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
+
 }
 
 function insertPractice($unit,$con)
