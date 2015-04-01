@@ -13,7 +13,17 @@ $(document).ready(function (){
     });
 
     $('#saveUnit-btn').click(function() {
-    	updateUnit();
+    	if($('.update-unit').size() > 0){
+    		updateUnit(function() {
+    			if($('.insert-unit').size() > 0){
+		    		insertUnit(function() {
+		    			callContent("assignment_checking.php");
+		    		});
+		    	}else{
+		    		callContent("assignment_checking.php");
+		    	}
+    		});
+    	}
     });
 
     //End event listener zone
@@ -105,17 +115,13 @@ function saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments)
                     data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
                     $("#status").html(data);
                 }else if(res[0]== "Success"){
-	                var data;
-	                data = "<div class='alert alert-success alert-dismissible'>";
-	                data += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
-	                data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
-	                $('#status').html(data);
+	                //alert("Success");
                 }
             }
         });
 }
 
-function updateUnit()
+function updateUnit(callback)
 {
 	var updateUnitSize = $('.update-unit').size();
 	var i;
@@ -126,8 +132,36 @@ function updateUnit()
         var max_in_experiments = $('#update_max_in_experiments_' + i).val();
         var max_post_experiments = $('#update_max_post_experiments_' + i).val();
         var mode = "updateUnit";
-        saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments);
+        if(uname == ""){
+        	alert("Unit Name was empty");
+        	return;
+        }else{
+        	saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments);
+        }
 	}
+	callback();
+}
+
+function insertUnit(callback)
+{
+	var insertUnitSize = $('.insert-unit').size();
+	var i;
+
+	for(i=1; i<=insertUnitSize; i++)
+	{
+		var unit = $('#insert_unit_'+i).text();
+		var uname = $('#insert_uname_' + i).val();
+        var max_in_experiments = $('#insert_max_in_experiments_' + i).val();
+        var max_post_experiments = $('#insert_max_post_experiments_' + i).val();
+        var mode = "insertUnit";
+        if(uname == ""){
+        	alert("Unit Name was empty");
+        	return;
+        }else{
+        	saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments);
+        }
+	}
+	callback();
 }
 
 //end function zone

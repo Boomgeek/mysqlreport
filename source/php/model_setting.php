@@ -37,13 +37,12 @@ if($mode == 'updateUnit')
 	}
 
 	$max_in_experiments = $_REQUEST["max_in_experiments"];
-	if(empty($unit)){
+	if($max_in_experiments < 0){
 		echo "Error: max_in_experiments was empty";
 		exit(0);
 	}
-
 	$max_post_experiments = $_REQUEST["max_post_experiments"];
-	if(empty($max_post_experiments)){
+	if($max_post_experiments < 0){
 		echo "Error: max_post_experiments was empty";
 		exit(0);
 	}
@@ -51,7 +50,7 @@ if($mode == 'updateUnit')
 	updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
 }
 
-if($mode == 'unitSetting')
+if($mode == 'unitSetting' || $mode == 'insertUnit')
 {
 	$unit = $_REQUEST["unit"];
 	if(empty($unit)){
@@ -215,7 +214,7 @@ function callUnitSetting()
 			echo "<td id='update_unit_".$i."'>".$unit[0]."</td>";
 			echo "<td><input type='text' id='update_uname_".$i."' class='form-control' value='".$unit[1]."'></td>";
 			echo "<td><input type='number' id='update_max_in_experiments_".$i."' class='form-control' value='".$unit[2]."' min='0'></td>";
-			echo "<td><input type='number' id='update_max_post_experiments_".$i."' class='form-control' value='".$unit[3]."' min='0'></td>";
+			echo "<td><input type='number' id='update_max_post_experiments_".$i++."' class='form-control' value='".$unit[3]."' min='0'></td>";
 		}
 		echo "</tbody></table><button class='btn btn-primary' id='addUnit-btn'><span class='fa fa-plus'></span> Add Unit</button> <button class='btn btn-danger' id='delete-btn'><span class='fa fa-minus'></span> Delete Unit</button></div>";
 	}
