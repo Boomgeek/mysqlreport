@@ -29,6 +29,8 @@ if($mode == 'unitSetting' || $mode == 'insertUnit')
 	}
 
 	insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
+	//echo checking for redirect to checking.php on ajax response
+	echo "checking";
 }
 
 if($mode == 'practiceSetting')
@@ -405,7 +407,7 @@ function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 	mysqli_query($con,$deleteSpoint);
 	//insert max unit point when update unit and delete practice successful 
 	insertMaxUnitPoint($con);
-	echo "Success: Update Unit ".$unit." successful";
+	echo "Success: Update Unit successful";
 }
 
 function callPracticeSetting($unit,$type)

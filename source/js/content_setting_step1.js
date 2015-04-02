@@ -17,7 +17,9 @@ function callUnitInsert(unit, uname, max_in_experiments, max_post_experiments) {
         type: "POST",
         data: "mode=unitSetting&unit=" + unit + "&uname=" + uname + "&max_in_experiments=" + max_in_experiments + "&max_post_experiments=" + max_post_experiments,
         success: function(result) {
-            callContent("assignment_checking.php"); //this function from dashboard.js
+            if(res[0]== "checking"){
+                callContent("assignment_checking.php");
+            }
         }
     });
 }

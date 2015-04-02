@@ -16,11 +16,7 @@ $(document).ready(function (){
     	if($('.update-unit').size() > 0){
     		updateUnit(function() {
     			if($('.insert-unit').size() > 0){
-		    		insertUnit(function() {
-		    			callContent("assignment_checking.php");
-		    		});
-		    	}else{
-		    		callContent("assignment_checking.php");
+		    		insertUnit();
 		    	}
     		});
     	}
@@ -115,7 +111,13 @@ function saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments)
                     data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
                     $("#status").html(data);
                 }else if(res[0]== "Success"){
-	                //alert("Success");
+	                var data;
+                    data = "<div class='alert alert-success alert-dismissible'>";
+                    data += "<button type='button' class='close' data-dismiss='alert'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>";
+                    data += "<strong>"+res[0]+" : </strong>"+res[1]+"</div>";
+                    $("#status").html(data);
+                }else if(res[0]== "checking"){
+                    callContent("assignment_checking.php");
                 }
             }
         });
@@ -142,7 +144,7 @@ function updateUnit(callback)
 	callback();
 }
 
-function insertUnit(callback)
+function insertUnit()
 {
 	var insertUnitSize = $('.insert-unit').size();
 	var i;
@@ -161,7 +163,6 @@ function insertUnit(callback)
         	saveUnit(mode,unit,uname,max_in_experiments,max_post_experiments);
         }
 	}
-	callback();
 }
 
 //end function zone
