@@ -33,7 +33,8 @@ $(document).ready(function() {
     });
 
     $('#sign-out-btn').click(function() {
-        window.location.replace("http://"+window.location.host+"/moodle/my/");
+        var pathname = window.location.pathname.split('/')[1];
+        window.location.replace("http://"+window.location.host+"/"+pathname);
     });
 
     $('#unit-settings-btn').click(function() {
