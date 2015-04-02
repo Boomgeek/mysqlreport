@@ -95,15 +95,15 @@ function callBarChart(data_array,res)
 {
     var data = [];
     for(i=0 ; i<data_array.length ; i++){
-        data.push({article: 'Article '+(i+1),frequency: data_array[i]});
+        data.push({article: 'Article '+(i+1),times: data_array[i]});
     }
     // Bar Chart
     Morris.Bar({
         element: res,
         data: data,
         xkey: 'article',
-        ykeys: ['frequency'],
-        labels: ['Experiment Frequency'],
+        ykeys: ['times'],
+        labels: ['Experiment times'],
         barRatio: 0.4,
         xLabelAngle: 0,
         hideHover: 'auto',

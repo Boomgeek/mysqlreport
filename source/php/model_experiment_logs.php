@@ -224,7 +224,7 @@ function callExperimentDetails($unit,$type,$article,$sort)
 	if($sort == 1){
 		$sort = "t1.sid ASC";
 	}else if($sort == 2){
-		$sort = "frequency DESC, t1.sid ASC";
+		$sort = "times DESC, t1.sid ASC";
 	}
 
 	include("./connection.php");
@@ -234,41 +234,41 @@ function callExperimentDetails($unit,$type,$article,$sort)
 	$sid = "select username as sid from mdl_user where id in (".$id.")";
 	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
 	$pidInfo = "select pid from mdl_mysql_practice where uid=(".$uid.") AND type=(".$type.") AND article=(".$article.") ORDER BY article ASC";
-	$countInfo = "select sid,count(code) as frequency from mdl_mysql_log where pid=(".$pidInfo .") AND sid in(".$sid.") GROUP BY sid";
-	$frequencyInfo = "select t1.sid,fullname,frequency from (".$userInfo.") as t1 INNER JOIN (".$countInfo.") as t2 on t1.sid=t2.sid ORDER BY ".$sort;
+	$countInfo = "select sid,count(code) as times from mdl_mysql_log where pid=(".$pidInfo .") AND sid in(".$sid.") GROUP BY sid";
+	$timesInfo = "select t1.sid,fullname,times from (".$userInfo.") as t1 INNER JOIN (".$countInfo.") as t2 on t1.sid=t2.sid ORDER BY ".$sort;
 
 	echo "<div class='table-responsive'><table class='table'><thead><tr>";
 	echo "<th>No.</th>";
 	echo "<th>SID</th>";
 	echo "<th>Name</th>";
-	echo "<th>Frequency</th>";
+	echo "<th>Times</th>";
 	echo "</tr></thead><tbody>";
 
-	if($resultFrequency = mysqli_query($con,$frequencyInfo))
+	if($resulttimes = mysqli_query($con,$timesInfo))
 	{
 		$i = 1;
-		while($frequency = mysqli_fetch_array($resultFrequency,MYSQLI_NUM)){
+		while($times = mysqli_fetch_array($resulttimes,MYSQLI_NUM)){
 			echo "<tr>";
 			echo "<td>".$i++."</td>";
-			echo "<td>".$frequency[0]."</td>";
-			echo "<td>".$frequency[1]."</td>";
+			echo "<td>".$times[0]."</td>";
+			echo "<td>".$times[1]."</td>";
 
 			$countInfo = "select count(pid) from mdl_mysql_log where pid=(".$pidInfo.")";
 			if($resultCount = mysqli_query($con,$countInfo))
 			{
 				while($count = mysqli_fetch_array($resultCount,MYSQLI_NUM)){
-					if($frequency[2]==$count[0]){
+					if($times[2]==$count[0]){
 						$progressColor = "progress-bar-success";
 					}else{
 						$progressColor = "progress-bar-warning";
 					}
-					if($frequency[2]< $count[0]/10){
+					if($times[2]< $count[0]/10){
 						$color = "color: Black;";
 					}else{
 						$color = "color: White;";
 					}
 					echo "<td><div class='progress'>";
-					echo "<div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='".(($frequency[2]/$count[0])*100)."' aria-valuemin='0' aria-valuemax='100' style='width: ".(($frequency[2]/$count[0])*100)."%; ".$color."'>".$frequency[2]."/".$count[0]."</div>";
+					echo "<div class='progress-bar progress-bar-info progress-bar-striped' role='progressbar' aria-valuenow='".(($times[2]/$count[0])*100)."' aria-valuemin='0' aria-valuemax='100' style='width: ".(($times[2]/$count[0])*100)."%; ".$color."'>".$times[2]."/".$count[0]."</div>";
 					echo "</div></td>";
 				}
 			}

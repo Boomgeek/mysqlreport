@@ -20,7 +20,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Experiment Frequency Of Students Bar Chart </h3>
+					<h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Experiment times</h3>
 				</div>
 				<div class="panel-body">
 					<div id="content-bar-chart"></div>
@@ -55,7 +55,7 @@
 									<label>Sort By:</label>
 					     			<select id="sort-Filter" class="form-control">
 					     				<option value="1">SID</option>
-					     				<option value="2">Frequency</option>
+					     				<option value="2">Times</option>
 					     			</select>
 								</div>
 							</div>
