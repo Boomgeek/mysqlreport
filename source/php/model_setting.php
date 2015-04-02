@@ -6,50 +6,6 @@ if(empty($mode)){
 	exit(0);
 }
 
-if($mode == 'callUnitSetting')
-{
-	callUnitSetting();
-}
-
-if($mode == 'deleteUnit')
-{
-	$unit = $_REQUEST["unit"];
-	if(empty($unit)){
-		echo "Error: unit was empty";
-		exit(0);
-	}
-
-	deleteUnit($unit);
-}
-
-if($mode == 'updateUnit')
-{
-	$unit = $_REQUEST["unit"];
-	if(empty($unit)){
-		echo "Error: unit was empty";
-		exit(0);
-	}
-
-	$uname = $_REQUEST["uname"];
-	if(empty($uname)){
-		echo "Error: uname was empty";
-		exit(0);
-	}
-
-	$max_in_experiments = $_REQUEST["max_in_experiments"];
-	if($max_in_experiments < 0){
-		echo "Error: max_in_experiments was empty";
-		exit(0);
-	}
-	$max_post_experiments = $_REQUEST["max_post_experiments"];
-	if($max_post_experiments < 0){
-		echo "Error: max_post_experiments was empty";
-		exit(0);
-	}
-
-	updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
-}
-
 if($mode == 'unitSetting' || $mode == 'insertUnit')
 {
 	$unit = $_REQUEST["unit"];
@@ -118,6 +74,50 @@ if($mode == 'practiceSetting')
 
 }
 
+if($mode == 'callUnitSetting')
+{
+	callUnitSetting();
+}
+
+if($mode == 'deleteUnit')
+{
+	$unit = $_REQUEST["unit"];
+	if(empty($unit)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+
+	deleteUnit($unit);
+}
+
+if($mode == 'updateUnit')
+{
+	$unit = $_REQUEST["unit"];
+	if(empty($unit)){
+		echo "Error: unit was empty";
+		exit(0);
+	}
+
+	$uname = $_REQUEST["uname"];
+	if(empty($uname)){
+		echo "Error: uname was empty";
+		exit(0);
+	}
+
+	$max_in_experiments = $_REQUEST["max_in_experiments"];
+	if($max_in_experiments < 0){
+		echo "Error: max_in_experiments was empty";
+		exit(0);
+	}
+	$max_post_experiments = $_REQUEST["max_post_experiments"];
+	if($max_post_experiments < 0){
+		echo "Error: max_post_experiments was empty";
+		exit(0);
+	}
+
+	updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
+}
+
 if($mode == "callPracticeSetting")
 {
 	$unit = $_REQUEST["unit"];
@@ -136,154 +136,6 @@ if($mode == "callPracticeSetting")
 }
 
 //start function zone
-function callPracticeSetting($unit,$type)
-{
-	if($type == 'In Experiments'){
-		$type = 1;
-	}else if($type == 'Post Experiments'){
-		$type = 2;
-	}
-
-	include("./connection.php");
-	$con = connection();
-
-	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
-	$practiceInfo = "select pid,article,max_practice_point,question from mdl_mysql_practice where uid=(".$uid.") AND type=".$type." ORDER BY article ASC";
-	
-	echo "<div class='table-responsive'><table class='table'><thead><tr>";
-	echo "<th>Article</th>";
-	echo "<th>Max practice point</th>";
-	echo "<th>Question</th>";
-	echo "</tr></thead><tbody id='practiceForm'>";
-
-	if($result = mysqli_query($con,$practiceInfo))
-	{
-		$num = 1;
-		while($data = mysqli_fetch_array($result,MYSQLI_NUM)){
-			echo "<tr>";
-			echo "<td id='pid_".$num."' hidden>".$data[0]."</td>";
-			echo "<td>".$data[1]."</td>";
-			echo "<td><input type='number' class='form-control' id='max_point_".$num."' value='".$data[2]."' min='1' step='0.1'></td>";
-			echo "<td><textarea id='question_".$num."' rows='2' cols='80'>".$data[3]."</textarea></td>";
-			echo "</tr>";
-			$num++;
-		}
-		echo "</tbody></table></div>";
-	}else{
-		printf("Question Error: %s", mysqli_error($con));
-		exit();
-	}	
-}
-
-function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
-{
-	include("./connection.php");
-	$con = connection();
-
-	$unitInfo = "select uid,max_in_experiments,max_post_experiments from mdl_mysql_unit where unit=".$unit;
-	$resultUnit = mysqli_query($con,$unitInfo);
-	$oldUnit = mysqli_fetch_array($resultUnit,MYSQLI_NUM);	
-
-	$update = "update mdl_mysql_unit set uname='".$uname."',max_in_experiments=".$max_in_experiments.",max_post_experiments=".$max_post_experiments." where unit=".$unit;
-	if(mysqli_query($con,$update))
-	{
-		if($max_in_experiments > $oldUnit[1]){
-			for($i=$oldUnit[1]+1; $i <= $max_in_experiments; $i++)
-			{
-				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",1,".$oldUnit[0].")";
-				mysqli_query($con,$insertPractice);
-			}
-		}else if($max_in_experiments < $oldUnit[1]){
-			for($i=$max_in_experiments+1; $i <= $oldUnit[1]; $i++)
-			{
-				$deletePractice = "delete from mdl_mysql_practice where uid=".$oldUnit[0]." AND type=1 AND article=".$i;
-				mysqli_query($con,$deletePractice);
-			}
-		}
-
-		if($max_post_experiments > $oldUnit[2]){
-			for($i=$oldUnit[2]+1; $i <= $max_post_experiments; $i++)
-			{
-				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",2,".$oldUnit[0].")";
-				mysqli_query($con,$insertPractice);
-			}
-		}else if($max_post_experiments < $oldUnit[2]){
-			for($i=$max_post_experiments+1; $i <= $oldUnit[2]; $i++)
-			{
-				$deletePractice = "delete from mdl_mysql_practice where uid=".$oldUnit[0]." AND type=2 AND article=".$i;
-				mysqli_query($con,$deletePractice);
-			}
-		}
-	}
-	else
-	{
-		printf("Error: %s", mysqli_error($con));
-		exit();
-	}
-	echo "Success: Insert Unit ".$unit." successful";
-}
-
-function deleteUnit($unit)
-{
-	include("./connection.php");
-	$con = connection();
-
-	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
-	$deletePractice = "delete from mdl_mysql_practice where uid=(".$uid.")";
-	$deleteUnit = "delete from mdl_mysql_unit where unit=".$unit;
-	
-	if(mysqli_query($con,$deletePractice))
-	{
-		if(mysqli_query($con,$deleteUnit)){
-			echo "Success: Delete unit ".$unit." successful";
-			//delete spoint table when delete unit
-			$deleteSpoint = "delete from mdl_mysql_spoint";
-			mysqli_query($con,$deleteSpoint);
-		}else{
-			printf("Error: %s", mysqli_error($con));
-			exit();
-		}
-	}
-	else
-	{
-		printf("Error: %s", mysqli_error($con));
-		exit();
-	}
-}
-
-function callUnitSetting()
-{
-	include("./connection.php");
-	$con = connection();
-
-	$uidInfo = "select unit,uname,max_in_experiments,max_post_experiments from mdl_mysql_unit ORDER BY unit ASC";
-
-	echo "<div class='table-responsive'><table class='table'><thead><tr>";
-	echo "<th>Unit</th>";
-	echo "<th>Unit Name</th>";
-	echo "<th>Max in experiments</th>";
-	echo "<th>Max post experiments</th>";
-	echo "</tr></thead><tbody id='unitForm'>";
-
-	if($resultUnit = mysqli_query($con,$uidInfo))
-	{
-		$i = 1;
-		while($unit = mysqli_fetch_array($resultUnit,MYSQLI_NUM)){
-			echo "<tr class='update-unit'>";
-			echo "<td id='update_unit_".$i."'>".$unit[0]."</td>";
-			echo "<td><input type='text' id='update_uname_".$i."' class='form-control' value='".$unit[1]."'></td>";
-			echo "<td><input type='number' id='update_max_in_experiments_".$i."' class='form-control' value='".$unit[2]."' min='0'></td>";
-			echo "<td><input type='number' id='update_max_post_experiments_".$i++."' class='form-control' value='".$unit[3]."' min='0'></td>";
-		}
-		echo "</tbody></table><button class='btn btn-primary' id='addUnit-btn'><span class='fa fa-plus'></span> Add Unit</button> <button class='btn btn-danger' id='delete-btn'><span class='fa fa-minus'></span> Delete Unit</button></div>";
-	}
-	else
-	{
-		printf("Error: %s", mysqli_error($con));
-		exit();
-	}
-}
-
 function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 {
 	include("./connection.php");
@@ -420,5 +272,154 @@ function insertMaxUnitPoint()
 		exit();
 	}
 }
+
+function callUnitSetting()
+{
+	include("./connection.php");
+	$con = connection();
+
+	$uidInfo = "select unit,uname,max_in_experiments,max_post_experiments from mdl_mysql_unit ORDER BY unit ASC";
+
+	echo "<div class='table-responsive'><table class='table'><thead><tr>";
+	echo "<th>Unit</th>";
+	echo "<th>Unit Name</th>";
+	echo "<th>Max in experiments</th>";
+	echo "<th>Max post experiments</th>";
+	echo "</tr></thead><tbody id='unitForm'>";
+
+	if($resultUnit = mysqli_query($con,$uidInfo))
+	{
+		$i = 1;
+		while($unit = mysqli_fetch_array($resultUnit,MYSQLI_NUM)){
+			echo "<tr class='update-unit'>";
+			echo "<td id='update_unit_".$i."'>".$unit[0]."</td>";
+			echo "<td><input type='text' id='update_uname_".$i."' class='form-control' value='".$unit[1]."'></td>";
+			echo "<td><input type='number' id='update_max_in_experiments_".$i."' class='form-control' value='".$unit[2]."' min='0'></td>";
+			echo "<td><input type='number' id='update_max_post_experiments_".$i++."' class='form-control' value='".$unit[3]."' min='0'></td>";
+		}
+		echo "</tbody></table><button class='btn btn-primary' id='addUnit-btn'><span class='fa fa-plus'></span> Add Unit</button> <button class='btn btn-danger' id='delete-btn'><span class='fa fa-minus'></span> Delete Unit</button></div>";
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
+function deleteUnit($unit)
+{
+	include("./connection.php");
+	$con = connection();
+
+	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
+	$deletePractice = "delete from mdl_mysql_practice where uid=(".$uid.")";
+	$deleteUnit = "delete from mdl_mysql_unit where unit=".$unit;
+	
+	if(mysqli_query($con,$deletePractice))
+	{
+		if(mysqli_query($con,$deleteUnit)){
+			echo "Success: Delete unit ".$unit." successful";
+			//delete spoint table when delete unit
+			$deleteSpoint = "delete from mdl_mysql_spoint";
+			mysqli_query($con,$deleteSpoint);
+		}else{
+			printf("Error: %s", mysqli_error($con));
+			exit();
+		}
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
+
+function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
+{
+	include("./connection.php");
+	$con = connection();
+
+	$unitInfo = "select uid,max_in_experiments,max_post_experiments from mdl_mysql_unit where unit=".$unit;
+	$resultUnit = mysqli_query($con,$unitInfo);
+	$oldUnit = mysqli_fetch_array($resultUnit,MYSQLI_NUM);	
+
+	$update = "update mdl_mysql_unit set uname='".$uname."',max_in_experiments=".$max_in_experiments.",max_post_experiments=".$max_post_experiments." where unit=".$unit;
+	if(mysqli_query($con,$update))
+	{
+		if($max_in_experiments > $oldUnit[1]){
+			for($i=$oldUnit[1]+1; $i <= $max_in_experiments; $i++)
+			{
+				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",1,".$oldUnit[0].")";
+				mysqli_query($con,$insertPractice);
+			}
+		}else if($max_in_experiments < $oldUnit[1]){
+			for($i=$max_in_experiments+1; $i <= $oldUnit[1]; $i++)
+			{
+				$deletePractice = "delete from mdl_mysql_practice where uid=".$oldUnit[0]." AND type=1 AND article=".$i;
+				mysqli_query($con,$deletePractice);
+			}
+		}
+
+		if($max_post_experiments > $oldUnit[2]){
+			for($i=$oldUnit[2]+1; $i <= $max_post_experiments; $i++)
+			{
+				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",2,".$oldUnit[0].")";
+				mysqli_query($con,$insertPractice);
+			}
+		}else if($max_post_experiments < $oldUnit[2]){
+			for($i=$max_post_experiments+1; $i <= $oldUnit[2]; $i++)
+			{
+				$deletePractice = "delete from mdl_mysql_practice where uid=".$oldUnit[0]." AND type=2 AND article=".$i;
+				mysqli_query($con,$deletePractice);
+			}
+		}
+	}
+	else
+	{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+	echo "Success: Insert Unit ".$unit." successful";
+}
+
+function callPracticeSetting($unit,$type)
+{
+	if($type == 'In Experiments'){
+		$type = 1;
+	}else if($type == 'Post Experiments'){
+		$type = 2;
+	}
+
+	include("./connection.php");
+	$con = connection();
+
+	$uid = "select uid from mdl_mysql_unit where unit=".$unit;
+	$practiceInfo = "select pid,article,max_practice_point,question from mdl_mysql_practice where uid=(".$uid.") AND type=".$type." ORDER BY article ASC";
+	
+	echo "<div class='table-responsive'><table class='table'><thead><tr>";
+	echo "<th>Article</th>";
+	echo "<th>Max practice point</th>";
+	echo "<th>Question</th>";
+	echo "</tr></thead><tbody id='practiceForm'>";
+
+	if($result = mysqli_query($con,$practiceInfo))
+	{
+		$num = 1;
+		while($data = mysqli_fetch_array($result,MYSQLI_NUM)){
+			echo "<tr>";
+			echo "<td id='pid_".$num."' hidden>".$data[0]."</td>";
+			echo "<td>".$data[1]."</td>";
+			echo "<td><input type='number' class='form-control' id='max_point_".$num."' value='".$data[2]."' min='1' step='0.1'></td>";
+			echo "<td><textarea id='question_".$num."' rows='2' cols='80'>".$data[3]."</textarea></td>";
+			echo "</tr>";
+			$num++;
+		}
+		echo "</tbody></table></div>";
+	}else{
+		printf("Question Error: %s", mysqli_error($con));
+		exit();
+	}	
+}
+
 //end function zone
 ?>
