@@ -1,5 +1,4 @@
 <?php 
-
 $mode = $_REQUEST["mode"];
 if(empty($mode)){
 	echo "Error: mode was empty";
@@ -135,6 +134,28 @@ if($mode == "callPracticeSetting")
 	callPracticeSetting($unit,$type);
 }
 
+if($mode == "updatePractice")
+{
+	$pid = $_REQUEST["pid"];
+	if(empty($pid)){
+		echo "Error: pid was empty";
+		exit(0);
+	}
+
+	$max_practice_point = $_REQUEST["max_practice_point"];
+	if(empty($max_practice_point)){
+		echo "Error: max_practice_point was empty";
+		exit(0);
+	}	
+
+	$question = $_REQUEST["question"];
+	if(empty($question)){
+		echo "Error: question was empty";
+		exit(0);
+	}
+
+	updatePractice($pid,$max_practice_point,$question);
+}
 //start function zone
 function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 {
@@ -156,7 +177,6 @@ function insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
-
 }
 
 function insertPractice($unit,$con)
@@ -234,6 +254,8 @@ function savePracticeForm($pid, $max_point, $question)
 	$update = "update mdl_mysql_practice set max_practice_point=".$max_point.",question='".$question."' where pid=".$pid;
 	if($result = mysqli_query($con,$update))
 	{
+		//insert max unit point when update practice successful 
+		insertMaxUnitPoint($con);
 		echo "Success: Update table successful.";
 	}
 	else
@@ -243,10 +265,10 @@ function savePracticeForm($pid, $max_point, $question)
 	}
 }
 
-function insertMaxUnitPoint()
+function insertMaxUnitPoint($con)
 {
-	include("./connection.php");
-	$con = connection();
+	//include("./connection.php");
+	//$con = connection();
 	$sumPoint = "select sum(max_practice_point) as max_point,uid from mdl_mysql_practice where uid in (select distinct uid from mdl_mysql_unit  ORDER BY unit ASC) GROUP BY uid";
 	$orderUnit = "select distinct unit,uid from mdl_mysql_unit  ORDER BY unit ASC";
 	$unitMaxPoint = "select max_point,unit from (".$sumPoint.") as t1 INNER JOIN (".$orderUnit.") as t2 ON t1.uid = t2.uid ORDER BY unit ASC";
@@ -379,7 +401,11 @@ function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 		printf("Error: %s", mysqli_error($con));
 		exit();
 	}
-	echo "Success: Insert Unit ".$unit." successful";
+	$deleteSpoint = "delete from mdl_mysql_spoint";
+	mysqli_query($con,$deleteSpoint);
+	//insert max unit point when update unit and delete practice successful 
+	insertMaxUnitPoint($con);
+	echo "Success: Update Unit ".$unit." successful";
 }
 
 function callPracticeSetting($unit,$type)
@@ -416,10 +442,26 @@ function callPracticeSetting($unit,$type)
 		}
 		echo "</tbody></table></div>";
 	}else{
-		printf("Question Error: %s", mysqli_error($con));
+		printf("Error: %s", mysqli_error($con));
 		exit();
 	}	
 }
 
+function updatePractice($pid,$max_practice_point,$question)
+{
+	include("./connection.php");
+	$con = connection();
+
+	$update = "update mdl_mysql_practice set max_practice_point=".$max_practice_point.", question='".$question."' where pid=".$pid;
+	
+	if(mysqli_query($con,$update))
+	{
+		insertMaxUnitPoint($con);								//update MaxUnitPoint when update practice
+		echo "Success: Update practice successful.";
+	}else{
+		printf("Error: %s", mysqli_error($con));
+		exit();
+	}
+}
 //end function zone
 ?>
