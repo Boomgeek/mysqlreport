@@ -30,7 +30,7 @@ if($mode == 'unitSetting' || $mode == 'insertUnit')
 
 	insertUnit($unit,$uname,$max_in_experiments,$max_post_experiments);
 	//echo checking for redirect to checking.php on ajax response
-	echo "checking";
+	echo "checking:";
 }
 
 if($mode == 'practiceSetting')
@@ -258,7 +258,6 @@ function savePracticeForm($pid, $max_point, $question)
 	{
 		//insert max unit point when update practice successful 
 		insertMaxUnitPoint($con);
-		echo "Success: Update table successful.";
 	}
 	else
 	{
@@ -375,6 +374,7 @@ function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 			{
 				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",1,".$oldUnit[0].")";
 				mysqli_query($con,$insertPractice);
+				echo "checking:";
 			}
 		}else if($max_in_experiments < $oldUnit[1]){
 			for($i=$max_in_experiments+1; $i <= $oldUnit[1]; $i++)
@@ -389,6 +389,7 @@ function updateUnit($unit,$uname,$max_in_experiments,$max_post_experiments)
 			{
 				$insertPractice = "insert into mdl_mysql_practice(article,type,uid) values(".$i.",2,".$oldUnit[0].")";
 				mysqli_query($con,$insertPractice);
+				echo "checking:";
 			}
 		}else if($max_post_experiments < $oldUnit[2]){
 			for($i=$max_post_experiments+1; $i <= $oldUnit[2]; $i++)

@@ -17,9 +17,12 @@ function callUnitInsert(unit, uname, max_in_experiments, max_post_experiments) {
         type: "POST",
         data: "mode=unitSetting&unit=" + unit + "&uname=" + uname + "&max_in_experiments=" + max_in_experiments + "&max_post_experiments=" + max_post_experiments,
         success: function(result) {
+            /*
+            var res = result.split(":");
             if(res[0]== "checking"){
                 callContent("assignment_checking.php");
             }
+            */
         }
     });
 }
@@ -40,8 +43,9 @@ function pushUnitForm() {
         }else{
             callUnitInsert(unit, uname, max_in_experiments, max_post_experiments);
         }
-        
     }
+    
+    callContent("assignment_checking.php");
 }
 
 function createUnitForm() {

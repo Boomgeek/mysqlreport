@@ -27,7 +27,12 @@ function callPracticeUpdate(pid, max_point, question) {
         type: "POST",
         data: "mode=practiceSetting&function=saveForm&pid=" + pid + "&max_point=" + max_point + "&question=" + question,
         success: function(result) {
-        	callContent("assignment_checking.php"); //this function from dashboard.js
+            /*
+        	var res = result.split(":");
+            if(res[0]== "checking"){
+                callContent("assignment_checking.php");
+            }
+            */
         }
     });
 }
@@ -47,5 +52,6 @@ function pushPracticeForm() {
         	return;
         }
     }
+    callContent("assignment_checking.php");
 }
 //end function zone
