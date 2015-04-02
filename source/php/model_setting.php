@@ -279,7 +279,7 @@ function insertMaxUnitPoint($con)
 			$update = "update mdl_mysql_unit SET max_unit_point=".$data[0]." where unit=".$data[1];
 			if($resultUpdate = mysqli_query($con,$update))
 			{
-				echo "Success: Update max_unit_point successful.";
+				//echo "Success: Update max_unit_point successful.";
 			}
 			else
 			{
