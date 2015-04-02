@@ -16,6 +16,6 @@
 	</div>
 	<div id="status"></div>
 	<div id="practiceSetting-Content"></div>
-	<button type="button" id="saveUnit-btn" class="btn btn-success btn-lg center-block">Save</button>
+	<button type="button" id="savePractice-btn" class="btn btn-success btn-lg center-block">Save</button>
 </body>
 <script src="./source/js/content_setting_practice.js"></script>
