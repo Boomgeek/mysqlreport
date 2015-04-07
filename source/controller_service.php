@@ -19,9 +19,10 @@ if($mode == "log")
 		echo "Error: code was empty";
 		exit(0);
 	}
-	$code = addslashes($code);		// add backslash to front Symbols in string
+	$code =  mysql_real_escape_string($code);		// protect sqli 
+	$code = addslashes($code);						// add backslash to front Symbols in string
 
-	$unit = $_REQUEST["unit"];
+	$unit = (int)$_REQUEST["unit"];
 	if(empty($unit))
 	{
 		echo "Error: unit was empty";
@@ -33,7 +34,7 @@ if($mode == "log")
 		exit(0);
 	}	
 
-	$article = $_REQUEST["article"];
+	$article = (int)$_REQUEST["article"];
 	if(empty($article))
 	{
 		echo "Error: article was empty";
@@ -45,13 +46,13 @@ if($mode == "log")
 		exit(0);
 	}		
 
-	$type = $_REQUEST["type"];
+	$type = (int)$_REQUEST["type"];
 	if(empty($type))
 	{
 		echo "Error: type was empty";
 		exit(0);
 	}
-	else if(($type != 1) && ($type != 2))
+	else if(($type !== 1) && ($type !== 2))
 	{
 		echo "Error: type is wrong. Only type is 1(while_exp) or 2(after_exp)";
 		exit(0);
@@ -76,8 +77,10 @@ if($mode == "answer")
 		echo "Error: answer was empty";
 		exit(0);
 	}
+	$answer =  mysql_real_escape_string($answer);
+	$answer = addslashes($answer);
 
-	$unit = $_REQUEST["unit"];
+	$unit = (int)$_REQUEST["unit"];
 	if(empty($unit))
 	{
 		echo "Error: unit was empty";
@@ -89,7 +92,7 @@ if($mode == "answer")
 		exit(0);
 	}	
 
-	$article = $_REQUEST["article"];
+	$article = (int)$_REQUEST["article"];
 	if(empty($article))
 	{
 		echo "Error: article was empty";
@@ -101,13 +104,13 @@ if($mode == "answer")
 		exit(0);
 	}		
 
-	$type = $_REQUEST["type"];
+	$type = (int)$_REQUEST["type"];
 	if(empty($type))
 	{
 		echo "Error: type was empty";
 		exit(0);
 	}
-	else if(($type != 1) && ($type != 2))
+	else if(($type !== 1) && ($type !== 2))
 	{
 		echo "Error: type is wrong. Only type is 1(while_exp) or 2(after_exp)";
 		exit(0);
