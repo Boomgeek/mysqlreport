@@ -42,21 +42,6 @@
       </INDEXES>
     </TABLE>
 
-    <TABLE NAME="mysql_student" COMMENT="mysql_student is keep student information">
-      <FIELDS>
-        <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="fname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="lname" TYPE="text" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="number" TYPE="char" LENGTH="3" NOTNULL="true" DEFAULT="0"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="sid"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="sid" UNIQUE="false" FIELDS="sid"/>
-      </INDEXES>
-    </TABLE>
-
     <TABLE NAME="mysql_practice" COMMENT="mysql_practice is keep practice information">
       <FIELDS>
         <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
@@ -105,21 +90,6 @@
       </KEYS>
       <INDEXES>
         <INDEX NAME="lid" UNIQUE="false" FIELDS="lid"/>
-      </INDEXES>
-    </TABLE>
-    
-    <TABLE NAME="mysql_ucount" COMMENT="student_timestamp is keep timestamp of student">
-      <FIELDS>
-        <FIELD NAME="ucid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="true"/>
-        <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="uid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
-        <FIELD NAME="count" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="ucid"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="ucid" UNIQUE="false" FIELDS="ucid"/>
       </INDEXES>
     </TABLE>
 
