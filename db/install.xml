@@ -29,7 +29,6 @@
         <FIELD NAME="pid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="sid" TYPE="char" LENGTH="8" NOTNULL="true" UNSIGNED="true"/>
         <FIELD NAME="answer" TYPE="text" NOTNULL="true"/>
-        <FIELD NAME="answer_count" TYPE="char" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="status" TYPE="char" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="point" TYPE="float" NOTNULL="true" UNSIGNED="true" DEFAULT="0"/>
         <FIELD NAME="comment" TYPE="text" DEFAULT="NULL"/>
