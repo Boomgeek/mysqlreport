@@ -19,8 +19,8 @@ if($mode == "log")
 		echo "Error: code was empty";
 		exit(0);
 	}
-	//$code = addslashes($code);						// add backslash to front Symbols in string
-	$code =  mysql_real_escape_string($code);		// protect sqli 
+	$code = addslashes($code);						// add backslash to front Symbols in string
+	//$code =  mysql_real_escape_string($code);		// protect sqli 
 
 	$unit = (int)$_REQUEST["unit"];
 	if(empty($unit))
@@ -77,8 +77,8 @@ if($mode == "answer")
 		echo "Error: answer was empty";
 		exit(0);
 	}
-	//$answer = addslashes($answer);
-	$answer =  mysql_real_escape_string($answer);
+	$answer = addslashes($answer);
+	//$answer =  mysql_real_escape_string($answer);
 
 	$unit = (int)$_REQUEST["unit"];
 	if(empty($unit))
