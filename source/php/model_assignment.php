@@ -529,14 +529,12 @@ function assignmentStudent($status,$unit,$type)
 	
 	if($result = mysqli_query($con,$select))
 	{
-		if($type == 1){
-			$type = 'In Experiments';
-		}else if($type == 2){
-			$type = 'Post Experiments';
-		}
+		$uname = "select uname from mdl_mysql_unit where unit=".$unit;
+		$resultUname = mysqli_query($con,$uname);
+		$uname = mysqli_fetch_array($resultUname,MYSQLI_NUM);
 
 		echo "<div class='panel panel-primary'><div class='panel-heading'>";
-		echo "<b>คำถาม</b> ";
+		echo "<b>Unit ".$unit." ".$uname[0]."</b> ";
 		echo "</div><div class='panel-body'>";
 		echo "<div class='table-responsive'><table class='table'>";
 		echo "<thead><tr>";
