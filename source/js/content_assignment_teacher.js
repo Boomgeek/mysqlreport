@@ -38,11 +38,8 @@ $(document).ready(function() {
     });
 
     $('#assignment-Content').delegate( ".status-btn", "click", function() {
-        $(this).parent().parent().remove();
         var num = $(this).attr('id').split('_')[1];
-        CheckedAssignment(num,function() {
-            updateBadge();
-        })
+        CheckedAssignment(num);
     });
     //end event listener zone
 
@@ -91,6 +88,7 @@ function callSaveAnswerChecked(aid, status, point, comment) {
         success: function(result) {
             var res = result.split(":");
             if(res[0] == "Success"){
+                updateBadge();                          //this function from dashboard.js
                 callContent("assignment_checking.php"); //this function from dashboard.js
             }else{
                 var data;
@@ -103,19 +101,17 @@ function callSaveAnswerChecked(aid, status, point, comment) {
     });
 }
 
-function CheckedAssignment(num,callback)
+function CheckedAssignment(num)
 {
     var aid = $('#aid_' + num).text();
     var point = $('#point_' + num).val();
     var comment = $('#comment_' + num).val();
     var status = 1;
-    alert(num);
     if(comment == "")
     {
         comment = "NULL";
     }
     callSaveAnswerChecked(aid, status, point, comment);
-    callback();
 }
 
 
