@@ -26,7 +26,6 @@
 		</div>
 	</div>
 	<div id="assignment-Content"></div>
-	<button type="button" id="saveAssignment" class="btn btn-primary btn-lg center-block">Save</button>
 </body>
 <script src="./source/js/content_assignment_teacher.js"></script>
 

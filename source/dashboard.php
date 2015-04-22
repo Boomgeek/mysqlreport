@@ -17,7 +17,7 @@ if(empty($USER->username)){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Progressive Report</title>
+    <title>Study Reports</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="./source/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@ if(empty($USER->username)){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Progressive Report</a>
+                <a class="navbar-brand" href="./">Study Reports</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">

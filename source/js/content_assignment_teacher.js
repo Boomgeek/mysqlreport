@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     //Start start windows zone
 	callDropdown("mode=unit&status="+$('#status-Filter').val(),"#unit-Filter",function(){
         callDropdown("mode=type&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val(),"#type-Filter",function() {
@@ -38,10 +37,12 @@ $(document).ready(function() {
         callAssignment();
     });
 
-    $('#saveAssignment').click(function() {
-        pushAnswerCheckedForm(function(){
-            updateBadge();                  //this function from dashboard.js. this file is run on dashboard.php
-        });
+    $('#assignment-Content').delegate( ".status-btn", "click", function() {
+        $(this).parent().parent().remove();
+        var num = $(this).attr('id').split('_')[1];
+        CheckedAssignment(num,function() {
+            updateBadge();
+        })
     });
     //end event listener zone
 
@@ -102,24 +103,20 @@ function callSaveAnswerChecked(aid, status, point, comment) {
     });
 }
 
-function pushAnswerCheckedForm(callback) {
-    var assignmentFormSize = $('#assignmentForm').children().size(); //check size of children array 
-    var i;
-
-    for (i = 1; i <= assignmentFormSize; i++) { //get information with DOM
-        //check status is checked box
-        if($("#status_" + i).prop('checked') ){
-            var aid = $('#aid_' + i).text();
-            var point = $('#point_' + i).val();
-            var comment = $('#comment_' + i).val();
-            var status = 1;
-            if(comment == ""){
-                comment = "NULL";
-            }
-            callSaveAnswerChecked(aid, status, point, comment);
-            callback();
-        }
+function CheckedAssignment(num,callback)
+{
+    var aid = $('#aid_' + num).text();
+    var point = $('#point_' + num).val();
+    var comment = $('#comment_' + num).val();
+    var status = 1;
+    alert(num);
+    if(comment == "")
+    {
+        comment = "NULL";
     }
+    callSaveAnswerChecked(aid, status, point, comment);
+    callback();
 }
+
 
 //end fucntion zone
