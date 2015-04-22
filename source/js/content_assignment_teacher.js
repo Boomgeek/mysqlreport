@@ -83,7 +83,7 @@ function callSaveAnswerChecked(aid, status, point, comment) {
             var res = result.split(":");
             if(res[0] == "Success"){
                 updateBadge();                          //this function from dashboard.js
-                callAllDropdown();
+                callAssignment();
             }else{
                 var data;
                 data = "<div class='alert alert-danger alert-dismissible'>";
