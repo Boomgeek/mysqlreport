@@ -1,12 +1,6 @@
 $(document).ready(function() {
     //Start start windows zone
-	callDropdown("mode=unit&status="+$('#status-Filter').val(),"#unit-Filter",function(){
-        callDropdown("mode=type&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val(),"#type-Filter",function() {
-            callDropdown("mode=article&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val()+"&type="+$('#type-Filter').val(),"#article-Filter",function() {
-                callAssignment();
-            });
-        });
-    });
+	callAllDropdown();
     //End start windows zone
 
     //start event listener zone
@@ -89,7 +83,7 @@ function callSaveAnswerChecked(aid, status, point, comment) {
             var res = result.split(":");
             if(res[0] == "Success"){
                 updateBadge();                          //this function from dashboard.js
-                callContent("assignment_checking.php"); //this function from dashboard.js
+                callAllDropdown();
             }else{
                 var data;
                 data = "<div class='alert alert-danger alert-dismissible'>";
@@ -114,5 +108,15 @@ function CheckedAssignment(num)
     callSaveAnswerChecked(aid, status, point, comment);
 }
 
+function callAllDropdown()
+{
+    callDropdown("mode=unit&status="+$('#status-Filter').val(),"#unit-Filter",function(){
+        callDropdown("mode=type&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val(),"#type-Filter",function() {
+            callDropdown("mode=article&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val()+"&type="+$('#type-Filter').val(),"#article-Filter",function() {
+                callAssignment();
+            });
+        });
+    });
+}
 
 //end fucntion zone

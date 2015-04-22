@@ -492,7 +492,7 @@ function getAssignmentChecked($status,$unit,$type,$article)
 			echo "<td width='180'>".$data[2]."</td>";
 			echo "<td><input type='number' id='point_".$num."' value='".$data[3]."' min='0' max='".$maxPoint[0]."' step='0.1'><b> / ".$maxPoint[0]."</b>";
 			echo "<td><textarea class='form-control' id='comment_".$num."' rows='2' cols='40'>".$data[4]."</textarea></td>";
-			echo "<td><div class='checkbox'><label><input type='checkbox' id='status_".$num."' value='0'> Checked</label></div></td>";
+			echo "<td><button class='btn btn-success status-btn' id='status_".$num."'><i class='fa fa-check-circle'></i> Checked</button></td>";
 			echo "</tr>";
 			$num++;
 		}
