@@ -27,6 +27,9 @@ if(empty($USER->username)){
 
     <!-- Morris Charts CSS -->
     <link href="./source/css/plugins/morris.css" rel="stylesheet">
+    
+    <!-- jBox CSS -->
+    <link href="./source/js/plugins/jBox/jBox.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="./source/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -134,6 +137,9 @@ if(empty($USER->username)){
 
     <!-- Morris Charts JavaScript -->
 	<script src="./source/js/plugins/morris/morris.min.js"></script>
+
+    <!-- jBox JavaScript -->
+    <script src="./source/js/plugins/jBox/jBox.min.js"></script>
 
     <!--UX core Javascript-->
     <script src="./source/js/dashboard.js"></script>

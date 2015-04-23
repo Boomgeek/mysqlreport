@@ -73,7 +73,7 @@ function callAssignment(){
         });
 }
 
-function callSaveAnswerChecked(aid, status, point, comment) {
+function callSaveAnswerChecked(aid, status, point, comment, no) {
     //alert("mode=saveAnswerChecked&aid=" + aid + "&status=" + status + "&point=" + point + "&comment=" + comment);
     $.ajax({
         url: "./source/php/model_assignment.php",
@@ -84,6 +84,7 @@ function callSaveAnswerChecked(aid, status, point, comment) {
             if(res[0] == "Success"){
                 updateBadge();                          //this function from dashboard.js
                 callAssignment();
+                NoticeChecked();
             }else{
                 var data;
                 data = "<div class='alert alert-danger alert-dismissible'>";
@@ -101,11 +102,12 @@ function CheckedAssignment(num)
     var point = $('#point_' + num).val();
     var comment = $('#comment_' + num).val();
     var status = 1;
+    var no = $('#no_' + num).text();
     if(comment == "")
     {
         comment = "NULL";
     }
-    callSaveAnswerChecked(aid, status, point, comment);
+    callSaveAnswerChecked(aid, status, point, comment, no);
 }
 
 function callAllDropdown()
@@ -119,4 +121,15 @@ function callAllDropdown()
     });
 }
 
+function NoticeChecked() {
+    new jBox('Notice', {
+        autoClose: 3000,
+        attributes:{x:'right',y:'bottom'},
+        stack:false,
+        animation:{open:'tada',close:'flip'},
+        color:'blue',
+        title:'Checked Successful!!!',
+        content: 'Good luck.'
+    });
+}
 //end fucntion zone

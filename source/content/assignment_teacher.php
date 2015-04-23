@@ -25,6 +25,7 @@
 			</div>
 		</div>
 	</div>
+	<div id="assignment-Status"></div>
 	<div id="assignment-Content"></div>
 </body>
 <script src="./source/js/content_assignment_teacher.js"></script>

@@ -395,7 +395,7 @@ function getAssignmentUnchecked($status,$unit,$type,$article)
 			//select max_practice_point
 
 			echo "<tr>";
-			echo "<td>".$num."</td>";
+			echo "<td id='no_".$num."'>".$num."</td>";
 			echo "<td id='aid_".$num."' hidden>".$data[0]."</td>";
 			echo "<td>".$data[1]."</td>";
 			echo "<td width='150'>".$fullName."</td>";
@@ -485,7 +485,7 @@ function getAssignmentChecked($status,$unit,$type,$article)
 			//select max_practice_point
 
 			echo "<tr>";
-			echo "<td>".$num."</td>";
+			echo "<td id='no_".$num."'>".$num."</td>";
 			echo "<td id='aid_".$num."' hidden>".$data[0]."</td>";
 			echo "<td>".$data[1]."</td>";
 			echo "<td width='150'>".$fullName."</td>";
