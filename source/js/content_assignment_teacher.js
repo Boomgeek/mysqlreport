@@ -84,7 +84,7 @@ function callSaveAnswerChecked(aid, status, point, comment, no) {
             if(res[0] == "Success"){
                 updateBadge();                          //this function from dashboard.js
                 callAssignment();
-                NoticeChecked();
+                NoticeChecked(no);
             }else{
                 var data;
                 data = "<div class='alert alert-danger alert-dismissible'>";
@@ -121,15 +121,15 @@ function callAllDropdown()
     });
 }
 
-function NoticeChecked() {
+function NoticeChecked(no) {
     new jBox('Notice', {
         autoClose: 3000,
         attributes:{x:'right',y:'bottom'},
         stack:false,
-        animation:{open:'tada',close:'flip'},
-        color:'blue',
-        title:'Checked Successful!!!',
-        content: 'Good luck.'
+        animation:{open:'tada',close:'zoom'},
+        color:'green',
+        title:"<i class='fa fa-check-square-o'></i> Checked",
+        content: "Checked assignment "+no+" successful."
     });
 }
 //end fucntion zone
