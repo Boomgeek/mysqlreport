@@ -20,8 +20,8 @@ $(document).ready(function() {
         callContent("progressive.php");
     });
     
-    $('#rating-btn').click(function() {
-        callContent("rating.php");
+    $('#ranking-btn').click(function() {
+        callContent("ranking.php");
     });
 
     $('#difficulty-btn').click(function() {

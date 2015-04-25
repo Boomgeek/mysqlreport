@@ -10,9 +10,9 @@ if($mode == "checkStudentPoint")
 	checkStudentPoint();
 }
 
-if($mode == "rating")
+if($mode == "ranking")
 {
-	getRating();
+	getRanking();
 }
 
 function checkStudentPoint()
@@ -97,7 +97,7 @@ function updateStudentPoint($sid,$con)
 	}
 }
 
-function getRating()
+function getRanking()
 {
 	include("./connection.php");
 	$con = connection();
