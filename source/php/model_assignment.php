@@ -200,9 +200,9 @@ function getUnitDropdown($status)
 	{
 		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
 		{
-			$sizeUname = strlen($data[1]);
+			$sizeUname = mb_strlen($data[1],'UTF-8');
 			if($sizeUname > 15){
-				$uname = substr($data[1], 0, 14)."...";
+				$uname = mb_substr($data[1], 0, 14,'UTF-8')."...";
 			}else{
 				$uname = $data[1];
 			}
@@ -290,7 +290,12 @@ function getUnitDropdownStudent($status)
 	{
 		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
 		{
-			$uname = substr($data[1], 0, 15)."...";
+			$sizeUname = mb_strlen($data[1],'UTF-8');
+			if($sizeUname > 15){
+				$uname = mb_substr($data[1], 0, 14,'UTF-8')."...";
+			}else{
+				$uname = $data[1];
+			}
 			echo "<option value='".$data[0]."'>".$data[0]." ".$uname."</option>";
 		}
 		
