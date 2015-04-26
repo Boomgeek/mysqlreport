@@ -202,7 +202,7 @@ function getUnitDropdown($status)
 		{
 			$sizeUname = mb_strlen($data[1],'UTF-8');
 			if($sizeUname > 15){
-				$uname = mb_substr($data[1], 0, 14,'UTF-8')."...";
+				$uname = mb_substr($data[1], 0, 18,'UTF-8')."...";
 			}else{
 				$uname = $data[1];
 			}
@@ -292,7 +292,7 @@ function getUnitDropdownStudent($status)
 		{
 			$sizeUname = mb_strlen($data[1],'UTF-8');
 			if($sizeUname > 15){
-				$uname = mb_substr($data[1], 0, 14,'UTF-8')."...";
+				$uname = mb_substr($data[1], 0, 18,'UTF-8')."...";
 			}else{
 				$uname = $data[1];
 			}
