@@ -10,7 +10,7 @@
 						<option value="1">Checked</option>
 					</select>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<label>Unit:</label>
 	     			<select id="unit-Filter" class="form-control"></select>
 				</div>
@@ -18,7 +18,7 @@
 					<label>Type of practice:</label>
 	     			<select id="type-Filter" class="form-control"></select>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<label>Article:</label>
 	     			<select id="article-Filter" class="form-control"></select>
 				</div>

@@ -1,6 +1,12 @@
 $(document).ready(function() {
     //Start start windows zone
-	callAllDropdown();
+	callDropdown("mode=unit&status="+$('#status-Filter').val(),"#unit-Filter",function(){
+        callDropdown("mode=type&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val(),"#type-Filter",function() {
+            callDropdown("mode=article&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val()+"&type="+$('#type-Filter').val(),"#article-Filter",function() {
+                callAssignment();
+            });
+        });
+    });
     //End start windows zone
 
     //start event listener zone
@@ -108,17 +114,6 @@ function CheckedAssignment(num)
         comment = "NULL";
     }
     callSaveAnswerChecked(aid, status, point, comment, no);
-}
-
-function callAllDropdown()
-{
-    callDropdown("mode=unit&status="+$('#status-Filter').val(),"#unit-Filter",function(){
-        callDropdown("mode=type&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val(),"#type-Filter",function() {
-            callDropdown("mode=article&status="+$('#status-Filter').val()+"&unit="+$('#unit-Filter').val()+"&type="+$('#type-Filter').val(),"#article-Filter",function() {
-                callAssignment();
-            });
-        });
-    });
 }
 
 function NoticeChecked(no) {
