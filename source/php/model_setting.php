@@ -306,8 +306,8 @@ function callUnitSetting()
 	echo "<div class='table-responsive'><table class='table'><thead><tr>";
 	echo "<th>Unit</th>";
 	echo "<th>Unit Name</th>";
-	echo "<th>Max in experiments</th>";
-	echo "<th>Max post experiments</th>";
+	echo "<th>Number of<br>In experiments</th>";
+	echo "<th>Number of<br>Post experiments</th>";
 	echo "</tr></thead><tbody id='unitForm'>";
 
 	if($resultUnit = mysqli_query($con,$uidInfo))
