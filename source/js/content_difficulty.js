@@ -11,6 +11,10 @@ $(document).ready(function (){
     $('#unit-Filter').change(function() {
         callDifficulty();
     });
+
+    $('#btn-practiceSettings').click(function() {
+        callContent("setting_practice.php");
+    });
     //end event listener zone
 });
 

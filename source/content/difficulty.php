@@ -3,9 +3,12 @@
 	<div class="form-group">
 		<div class="form-inline">
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-md-10">
 					<label>Unit:</label>
 	     			<select id="unit-Filter" class="form-control"></select>
+				</div>
+				<div class="col-md-2">
+	     			<button class="btn btn-warning" id="btn-practiceSettings"><span class="fa fa fa-wrench"></span> Practice Settings</button>
 				</div>
 			</div>
 		</div>
@@ -14,7 +17,7 @@
 		<div class="col-lg-6">
 			<span class="label label-danger">Very Hard</span>
 			<span class="label label-warning">Hard</span>
-			<span class="label label-success">Good</span>
+			<span class="label label-success">Moderate</span>
 			<span class="label label-info">Easy</span>
 			<span class="label label-primary">Very Easy</span>
 		</div>
