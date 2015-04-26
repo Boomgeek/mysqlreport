@@ -3,7 +3,7 @@
 	<div class="form-group">
 		<div class="form-inline">
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<label>Unit:</label>
 	     			<select id="unit-Filter" class="form-control"></select>
 				</div>

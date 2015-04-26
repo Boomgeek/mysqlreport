@@ -113,13 +113,14 @@ function callUnitDropdown()
 	include("./connection.php");
 	$con = connection();
 
-	$select = "select distinct unit from mdl_mysql_unit ORDER BY unit ASC";
+	$select = "select distinct unit,uname from mdl_mysql_unit ORDER BY unit ASC";
 
 	if($result = mysqli_query($con,$select))
 	{
 		while($data = mysqli_fetch_array($result,MYSQLI_NUM))
 		{
-			echo "<option>".$data[0]."</option>";
+			$uname = substr($data[1], 0, 15)."...";
+			echo "<option value='".$data[0]."'>".$data[0]." ".$uname."</option>";
 		}
 		
 	}
